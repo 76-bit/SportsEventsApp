@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static SportsEventsApp.Constants.ModelConstants;
 
 namespace SportsEventsApp.Data
@@ -31,9 +32,8 @@ namespace SportsEventsApp.Data
         public DateTime DateOfBirth { get; set; }
 
         [Required]
-        [Range(minFighterAge,maxFighterAge)]
-        [Comment("The age of the fighter, must be between 18 and 100")]
-        public int Age { get; set; }
+        [Comment("The age of the figher ( dinamically calculated)")]
+        public int Age => DateTime.Now.Year - DateOfBirth.Year;
 
         [Required]
         [Comment("The height of the fighter in cm")]
@@ -41,6 +41,8 @@ namespace SportsEventsApp.Data
 
         [Required]
         [Comment("The weight class (category) of the fighter")]
+        public int CategoryId { get; set; }
+        [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; } = null!;
     }
 }

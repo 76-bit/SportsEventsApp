@@ -30,8 +30,8 @@ namespace SportsEventsApp.Data
         [Comment("The date of the fight, not the date of its adding")]
         public DateTime DateOfTheFight { get; set; }
 
-        [Comment("A collection for the two (or maybe more, if it is a special event) fighters in the fight.")]
-        public List<Fighter> Fighters { get; set; } = new List<Fighter>();
+        [Comment("This is the collection that keeps track of the fighters in the fight.")]
+        public ICollection<FighterFight> FighterFights { get; set; } = new List<FighterFight>();
 
         [Required]
         [Comment("The id of the admin that added the fight, note that users and guests cannot add or delete fights")]

@@ -7,7 +7,7 @@ namespace SportsEventsApp.Data
     {
         [Key]
         [Comment("The id of the category")]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         [Required]
         [Comment("The name of the category, exemple: LightWeight, MiddleWeight....")]
         public string Name { get; set; } = null!;

@@ -6,17 +6,14 @@ namespace SportsEventsApp.Data
 {
     public class FighterFight
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
-        public int FighterId { get; set; }
+        public Guid FighterId { get; set; }
 
         [ForeignKey(nameof(FighterId))]
         public Fighter Fighter { get; set; } = null!;
 
         [Required]
-        public int FightId { get; set; }
+        public Guid FightId { get; set; }
 
         [ForeignKey(nameof(FightId))]
         public Fight Fight { get; set; } = null!;

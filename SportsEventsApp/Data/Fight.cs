@@ -10,7 +10,7 @@ namespace SportsEventsApp.Data
     {
         [Key]
         [Comment("Unique identifier of the fight")]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         [Required]
         [Comment("The name of the title, has a minimum and maximum characher limit")]
         [MinLength(minFightTitleLenght)]

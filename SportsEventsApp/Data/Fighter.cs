@@ -10,7 +10,7 @@ namespace SportsEventsApp.Data
     {
         [Key]
         [Comment("The unique identifier of the fighter")]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
         [MinLength(minFighterFirstNameLenght)]
@@ -41,7 +41,7 @@ namespace SportsEventsApp.Data
 
         [Required]
         [Comment("The weight class (category) of the fighter")]
-        public int CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; } = null!;
     }

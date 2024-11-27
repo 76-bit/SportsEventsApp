@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace SportsEventsApp.Data
 {
+    [PrimaryKey(nameof(UserId), nameof(FightId))]
     public class UserFight
     {
         [Required]

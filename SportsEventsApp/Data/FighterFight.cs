@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SportsEventsApp.Data
 {
+    [PrimaryKey(nameof(FighterId), nameof(FightId))]
     public class FighterFight
     {
         [Required]

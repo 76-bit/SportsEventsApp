@@ -40,4 +40,48 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedRolesAndAdminUser(services).GetAwaiter().GetResult();
+}
+
 app.Run();
+
+static async Task SeedRolesAndAdminUser(IServiceProvider services)
+{
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+
+    // Define roles
+    var roles = new[] { "User", "Admin" };
+
+    // Ensure roles exist
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+
+    var config = services.GetRequiredService<IConfiguration>();
+    var adminEmail = config["AdminUser:Email"];
+    var adminPassword = config["AdminUser:Password"];
+
+    if (await userManager.FindByEmailAsync(adminEmail) == null)
+    {
+        var adminUser = new IdentityUser
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+            EmailConfirmed = true
+        };
+
+        var createUserResult = await userManager.CreateAsync(adminUser, adminPassword);
+        if (createUserResult.Succeeded)
+        {
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+        }
+    }
+}

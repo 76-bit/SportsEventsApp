@@ -29,7 +29,11 @@ namespace SportsEventsApp.Data
                 new Category { Id = Guid.NewGuid(), Name = "Middleweight  ", MinWeight = 205, MaxWeight = 265 });
                 
         }
-
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Fight> Fights { get; set; }
+        public DbSet<Fighter> Fighters { get; set; }
+        public DbSet<FighterFight> FightersFights { get; set; }
+        public DbSet<UserFight> UsersFights { get; set; }
 
     }
 }

@@ -13,12 +13,12 @@ namespace SportsEventsApp.Data
         public string Name { get; set; } = null!;
 
         [Required]
-        [Comment("The minimum required weight needed to clasify as this weight.")]
+        [Comment("The minimum required weight needed to clasify as this weight, in pounds.")]
         public double MinWeight { get; set; }
 
         [Required]
 
-        [Comment("The minimum required weight needed to clasify as this weight.")]
+        [Comment("The minimum required weight needed to clasify as this weight, in pounds.")]
         public double MaxWeight { get; set; }
 
         [Comment("A collection that keeps track of all the fighter with a sspecific category")]

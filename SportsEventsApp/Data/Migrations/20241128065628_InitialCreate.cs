@@ -13,6 +13,42 @@ namespace SportsEventsApp.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "AspNetUserTokens",
+                type: "nvarchar(450)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(128)",
+                oldMaxLength: 128);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "LoginProvider",
+                table: "AspNetUserTokens",
+                type: "nvarchar(450)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(128)",
+                oldMaxLength: 128);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "ProviderKey",
+                table: "AspNetUserLogins",
+                type: "nvarchar(450)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(128)",
+                oldMaxLength: 128);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "LoginProvider",
+                table: "AspNetUserLogins",
+                type: "nvarchar(450)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(128)",
+                oldMaxLength: 128);
+
             migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
@@ -87,13 +123,13 @@ namespace SportsEventsApp.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_UsersFights_Fights_FightId",
                         column: x => x.FightId,
                         principalTable: "Fights",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -111,13 +147,13 @@ namespace SportsEventsApp.Data.Migrations
                         column: x => x.FighterId,
                         principalTable: "Fighters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_FightersFights_Fights_FightId",
                         column: x => x.FightId,
                         principalTable: "Fights",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.InsertData(
@@ -125,15 +161,15 @@ namespace SportsEventsApp.Data.Migrations
                 columns: new[] { "Id", "MaxWeight", "MinWeight", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("2dcedebe-e294-49fa-8002-e7ba2cdece92"), 115.0, 106.0, "Strawweight" },
-                    { new Guid("4bbfcd06-c89f-4749-8b06-ab9c592c226f"), 185.0, 170.0, "Middleweight  " },
-                    { new Guid("62ea6f95-fe56-4e62-abc8-305cb3b502df"), 170.0, 155.0, "Welterweight  " },
-                    { new Guid("aaf2d3df-93d1-48a5-be9d-7691f4c74f86"), 125.0, 115.0, "Flyweight " },
-                    { new Guid("b5c2d930-7285-49c2-97e6-04ced45c1235"), 145.0, 135.0, "Featherweight  " },
-                    { new Guid("d0f549d2-b1ac-4067-b896-75d39ce1c135"), 205.0, 185.0, "Light heavyweight " },
-                    { new Guid("d36f037b-0335-46f4-ae64-b95aa8050327"), 265.0, 205.0, "Middleweight  " },
-                    { new Guid("d4cc6824-f785-4f37-9b55-edd0ddf1c85a"), 135.0, 125.0, "Bantamweight  " },
-                    { new Guid("e2dd7dab-5044-4e6d-8445-638f012645bd"), 155.0, 145.0, "Lightweight " }
+                    { new Guid("03a1b0e5-6ae4-4221-903c-5a5c78e9fda0"), 185.0, 170.0, "Middleweight  " },
+                    { new Guid("14596b08-529f-4fd3-9986-fa045dbfdf20"), 135.0, 125.0, "Bantamweight  " },
+                    { new Guid("5f958e3d-8f9f-4b51-9d1a-5563d29673e7"), 265.0, 205.0, "Middleweight  " },
+                    { new Guid("81541acb-1364-4330-a8b6-2eb3c9809415"), 125.0, 115.0, "Flyweight " },
+                    { new Guid("9b6a5393-17a4-4248-9768-36cbae23220e"), 205.0, 185.0, "Light heavyweight " },
+                    { new Guid("b20956e2-86ee-4b5d-a722-4afb5112fae6"), 155.0, 145.0, "Lightweight " },
+                    { new Guid("bef25e3c-b93e-41ee-a62c-7f1099edd03a"), 115.0, 106.0, "Strawweight" },
+                    { new Guid("d34e565c-9c89-4488-b43e-4ef167dd7ef7"), 145.0, 135.0, "Featherweight  " },
+                    { new Guid("efd66861-4354-464e-b320-53bc5aade8d0"), 170.0, 155.0, "Welterweight  " }
                 });
 
             migrationBuilder.CreateIndex(
@@ -174,6 +210,42 @@ namespace SportsEventsApp.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "AspNetUserTokens",
+                type: "nvarchar(128)",
+                maxLength: 128,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(450)");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "LoginProvider",
+                table: "AspNetUserTokens",
+                type: "nvarchar(128)",
+                maxLength: 128,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(450)");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "ProviderKey",
+                table: "AspNetUserLogins",
+                type: "nvarchar(128)",
+                maxLength: 128,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(450)");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "LoginProvider",
+                table: "AspNetUserLogins",
+                type: "nvarchar(128)",
+                maxLength: 128,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(450)");
         }
     }
 }

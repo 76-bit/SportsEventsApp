@@ -12,7 +12,7 @@ using SportsEventsApp.Data;
 namespace SportsEventsApp.Data.Migrations
 {
     [DbContext(typeof(SportEventsAppDbContext))]
-    [Migration("20241127071313_InitialCreate")]
+    [Migration("20241128065628_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -170,12 +170,10 @@ namespace SportsEventsApp.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -212,12 +210,10 @@ namespace SportsEventsApp.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -254,63 +250,63 @@ namespace SportsEventsApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2dcedebe-e294-49fa-8002-e7ba2cdece92"),
+                            Id = new Guid("bef25e3c-b93e-41ee-a62c-7f1099edd03a"),
                             MaxWeight = 115.0,
                             MinWeight = 106.0,
                             Name = "Strawweight"
                         },
                         new
                         {
-                            Id = new Guid("aaf2d3df-93d1-48a5-be9d-7691f4c74f86"),
+                            Id = new Guid("81541acb-1364-4330-a8b6-2eb3c9809415"),
                             MaxWeight = 125.0,
                             MinWeight = 115.0,
                             Name = "Flyweight "
                         },
                         new
                         {
-                            Id = new Guid("d4cc6824-f785-4f37-9b55-edd0ddf1c85a"),
+                            Id = new Guid("14596b08-529f-4fd3-9986-fa045dbfdf20"),
                             MaxWeight = 135.0,
                             MinWeight = 125.0,
                             Name = "Bantamweight  "
                         },
                         new
                         {
-                            Id = new Guid("b5c2d930-7285-49c2-97e6-04ced45c1235"),
+                            Id = new Guid("d34e565c-9c89-4488-b43e-4ef167dd7ef7"),
                             MaxWeight = 145.0,
                             MinWeight = 135.0,
                             Name = "Featherweight  "
                         },
                         new
                         {
-                            Id = new Guid("e2dd7dab-5044-4e6d-8445-638f012645bd"),
+                            Id = new Guid("b20956e2-86ee-4b5d-a722-4afb5112fae6"),
                             MaxWeight = 155.0,
                             MinWeight = 145.0,
                             Name = "Lightweight "
                         },
                         new
                         {
-                            Id = new Guid("62ea6f95-fe56-4e62-abc8-305cb3b502df"),
+                            Id = new Guid("efd66861-4354-464e-b320-53bc5aade8d0"),
                             MaxWeight = 170.0,
                             MinWeight = 155.0,
                             Name = "Welterweight  "
                         },
                         new
                         {
-                            Id = new Guid("4bbfcd06-c89f-4749-8b06-ab9c592c226f"),
+                            Id = new Guid("03a1b0e5-6ae4-4221-903c-5a5c78e9fda0"),
                             MaxWeight = 185.0,
                             MinWeight = 170.0,
                             Name = "Middleweight  "
                         },
                         new
                         {
-                            Id = new Guid("d0f549d2-b1ac-4067-b896-75d39ce1c135"),
+                            Id = new Guid("9b6a5393-17a4-4248-9768-36cbae23220e"),
                             MaxWeight = 205.0,
                             MinWeight = 185.0,
                             Name = "Light heavyweight "
                         },
                         new
                         {
-                            Id = new Guid("d36f037b-0335-46f4-ae64-b95aa8050327"),
+                            Id = new Guid("5f958e3d-8f9f-4b51-9d1a-5563d29673e7"),
                             MaxWeight = 265.0,
                             MinWeight = 205.0,
                             Name = "Middleweight  "

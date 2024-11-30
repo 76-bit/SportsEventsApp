@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SportsEventsApp.Data
 {
+    //a class that connects the user with their fights (those in their watchlist)
     [PrimaryKey(nameof(UserId), nameof(FightId))]
     public class UserFight
     {

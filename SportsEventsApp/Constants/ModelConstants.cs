@@ -1,5 +1,6 @@
 ﻿namespace SportsEventsApp.Constants
 {
+    //here are all the constants for the models in the db
     public class ModelConstants
     {
         public const int maxFightTitleLenght = 200;

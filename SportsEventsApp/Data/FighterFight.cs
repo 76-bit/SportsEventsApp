@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SportsEventsApp.Data
 {
+    //a class that connects the fight with the fighters
     [PrimaryKey(nameof(FighterId), nameof(FightId))]
     public class FighterFight
     {

@@ -11,6 +11,7 @@ namespace SportsEventsApp.Data
 
         }
 
+        //the adding of the weight categories in the db
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SportsEventsApp.Data;
+using SportsEventsApp.Services.Implementations;
+using SportsEventsApp.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +60,8 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     SeedRolesAndAdminUser(services).GetAwaiter().GetResult();
 }
+
+builder.Services.AddScoped<IFightService, FightService>();
 
 app.Run();
 

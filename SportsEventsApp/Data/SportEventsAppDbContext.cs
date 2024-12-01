@@ -64,8 +64,38 @@ namespace SportsEventsApp.Data
                     Title = "Israel Adesanya vs Alex Pereira",
                     Description = "A thrilling bout between two fierce rivals.",
                     DateOfTheFight = new DateTime(2023, 4, 8),
-                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/1/1a/Israel_Adesanya_vs_Alex_Pereira.jpg",
+                    ImageUrl = "https://www.bet-experts.com/wp-content/uploads/2023/04/ufc-287-bet-experts.jpg",
                     PublisherId = adminId, // Link the admin to the fight
+                    IsDeleted = false
+                },
+                new Fight
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Anderson Silva vs Chael Sonnen",
+                    Description = "A classic middleweight bout filled with drama.",
+                    DateOfTheFight = new DateTime(2012, 7, 7),
+                    ImageUrl = "https://i.ytimg.com/vi/ugQCRH9f5QU/maxresdefault.jpg",
+                    PublisherId = adminId,
+                    IsDeleted = false
+                },
+                new Fight
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Francis Ngannou vs Stipe Miocic",
+                    Description = "A heavyweight clash for the championship title.",
+                    DateOfTheFight = new DateTime(2021, 3, 27),
+                    ImageUrl = "https://i.pinimg.com/736x/5e/69/ee/5e69ee1c4c9f20167f124387b2116c3a.jpg",
+                    PublisherId = adminId,
+                    IsDeleted = false
+                },
+                new Fight
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Amanda Nunes vs Cris Cyborg",
+                    Description = "A historic fight in women's MMA.",
+                    DateOfTheFight = new DateTime(2018, 12, 29),
+                    ImageUrl = "https://mmajunkie.usatoday.com/wp-content/uploads/sites/91/2018/11/cris-cyborg-amanda-nunes-ufc-230-press-conference-1.jpg?w=1000",
+                    PublisherId = adminId,
                     IsDeleted = false
                 }
             );

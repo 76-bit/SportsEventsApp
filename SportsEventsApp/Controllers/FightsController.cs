@@ -14,7 +14,7 @@ namespace SportsEventsApp.Controllers
         }
 
         // Display all fights with pagination
-        public async Task<IActionResult> Index(int page = 1, int pageSize = 8)
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 4)
         {
             var fights = await _fightService.GetAllFightsAsync();
             var paginatedFights = fights

@@ -43,6 +43,9 @@ namespace SportsEventsApp.Data
         [Comment("This is the collection that keeps the fights of the individual user's fight wathclist")]
         public List<UserFight> UsersFights { get; set; } = new List<UserFight>();
 
+        [Comment("this is a bool that keeps track of the status of the fight- deleted or not (soft delete)")]
+        public bool IsDeleted { get; set; } = false;
+
 
     }
 }

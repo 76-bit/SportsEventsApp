@@ -26,6 +26,8 @@ builder.Services.AddControllersWithViews();
 
 // Add Razor Pages
 builder.Services.AddRazorPages();
+//Add the FightService
+builder.Services.AddScoped<IFightService, FightService>();
 
 var app = builder.Build();
 
@@ -45,14 +47,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // Enable authentication middleware
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Map Razor Pages
+
 app.MapRazorPages();
 
 using (var scope = app.Services.CreateScope())
@@ -60,9 +62,6 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     SeedRolesAndAdminUser(services).GetAwaiter().GetResult();
 }
-
-builder.Services.AddScoped<IFightService, FightService>();
-
 app.Run();
 
 static async Task SeedRolesAndAdminUser(IServiceProvider services)

@@ -3,6 +3,21 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to "MMA Tracker"</h1>
+    <p>Your #1 site for tracking MMA events</p>
+
+    <div class="btn-group mt-4" role="group">
+        <!-- Button for All Fights -->
+        <a asp-controller="Fights" asp-action="Index" class="btn btn-primary btn-lg">
+            All Fights
+        </a>
+
+        <!-- Buttons for Upcoming and Archived (future functionality) -->
+        <a class="btn btn-secondary btn-lg" disabled>
+            Upcoming Fights
+        </a>
+        <a class="btn btn-secondary btn-lg" disabled>
+            Archived Fights
+        </a>
+    </div>
 </div>

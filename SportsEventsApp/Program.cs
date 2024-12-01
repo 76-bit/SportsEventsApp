@@ -22,6 +22,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 // Add MVC Controllers and Views
 builder.Services.AddControllersWithViews();
 
+// Add Razor Pages
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,7 +48,10 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"); // Map MVC routes
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Map Razor Pages
+app.MapRazorPages();
 
 using (var scope = app.Services.CreateScope())
 {

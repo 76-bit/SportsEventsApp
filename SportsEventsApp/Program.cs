@@ -12,9 +12,6 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<SportEventsAppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<SportEventsAppDbContext>();
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 // Configure Identity with Role support
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
@@ -23,12 +20,15 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<SportEventsAppDbContext>()
 .AddDefaultTokenProviders();
 
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 // Add MVC Controllers and Views
 builder.Services.AddControllersWithViews();
 
 // Add Razor Pages
 builder.Services.AddRazorPages();
-//Add the FightService
+
+// Add custom services
 builder.Services.AddScoped<IFightService, FightService>();
 
 var app = builder.Build();
@@ -49,13 +49,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 
 app.MapRazorPages();
 
@@ -64,6 +63,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     SeedRolesAndAdminUser(services).GetAwaiter().GetResult();
 }
+
 app.Run();
 
 static async Task SeedRolesAndAdminUser(IServiceProvider services)

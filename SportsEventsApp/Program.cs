@@ -15,7 +15,13 @@ builder.Services.AddDbContext<SportEventsAppDbContext>(options =>
 // Configure Identity with Role support
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedAccount = false; // Disable email confirmation
+    options.User.RequireUniqueEmail = true; // Enforce unique email
+    options.Password.RequireDigit = false; // Adjust password complexity
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequiredLength = 6; // Minimum password length
 })
 .AddEntityFrameworkStores<SportEventsAppDbContext>()
 .AddDefaultTokenProviders();

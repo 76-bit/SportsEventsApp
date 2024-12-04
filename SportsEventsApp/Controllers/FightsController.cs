@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportsEventsApp.Services.Interfaces;
 using SportsEventsApp.Models;
+using SportsEventsApp.Data;
 
 namespace SportsEventsApp.Controllers
 {
@@ -55,6 +56,83 @@ namespace SportsEventsApp.Controllers
             };
 
             return View(viewModel);
+        }
+
+        // Add a new fight (GET)
+        public IActionResult Add()
+        {
+            return View(new FightViewModel());
+        }
+
+        // Add a new fight (POST)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(FightViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var fight = new Fight
+            {
+                Title = model.Title,
+                Description = model.Description,
+                DateOfTheFight = model.DateOfTheFight,
+                ImageUrl = model.ImageUrl,
+                PublisherId = User.Identity?.Name // Set publisher to current user
+            };
+
+            await _fightService.AddFightAsync(fight);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Edit an existing fight (GET)
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var fight = await _fightService.GetFightByIdAsync(id);
+            if (fight == null || fight.IsDeleted) return NotFound();
+
+            var viewModel = new FightViewModel
+            {
+                Id = fight.Id,
+                Title = fight.Title,
+                Description = fight.Description,
+                DateOfTheFight = fight.DateOfTheFight,
+                ImageUrl = fight.ImageUrl
+            };
+
+            return View(viewModel);
+        }
+
+        // Edit an existing fight (POST)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(FightViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var fight = new Fight
+            {
+                Id = model.Id,
+                Title = model.Title,
+                Description = model.Description,
+                DateOfTheFight = model.DateOfTheFight,
+                ImageUrl = model.ImageUrl,
+            };
+
+            await _fightService.EditFightAsync(fight);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Soft-delete a fight
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _fightService.SoftDeleteFightAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

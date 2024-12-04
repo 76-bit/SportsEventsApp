@@ -1,0 +1,13 @@
+﻿@page
+@model SportsEventsApp.Areas.Identity.Pages.Account.LogoutModel
+@{
+    ViewData["Title"] = "Log out";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <p>Are you sure you want to log out?</p>
+    <button type="submit" class="btn btn-danger">Log out</button>
+    <a asp-page="/Account/Login" class="btn btn-secondary">Cancel</a>
+</form>

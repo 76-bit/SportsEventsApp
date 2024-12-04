@@ -1,6 +1,7 @@
 ﻿using SportsEventsApp.Data;
 using SportsEventsApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using static SportsEventsApp.Constants.ModelConstants;
 
 namespace SportsEventsApp.Services.Implementations
 {
@@ -35,6 +36,12 @@ namespace SportsEventsApp.Services.Implementations
         {
             if (fight == null) throw new ArgumentNullException(nameof(fight));
 
+            // Assign default image if none is provided
+            if (string.IsNullOrEmpty(fight.ImageUrl))
+            {
+                fight.ImageUrl = DefaultImageUrl;
+            }
+
             _context.Fights.Add(fight);
             await _context.SaveChangesAsync();
         }
@@ -48,12 +55,14 @@ namespace SportsEventsApp.Services.Implementations
                 throw new InvalidOperationException("Cannot edit a non-existent or deleted fight.");
             }
 
-            // Update fields (ensure only valid fields are updated)
             existingFight.Title = updatedFight.Title;
             existingFight.Description = updatedFight.Description;
-            existingFight.ImageUrl = updatedFight.ImageUrl;
             existingFight.DateOfTheFight = updatedFight.DateOfTheFight;
-            existingFight.FighterFights = updatedFight.FighterFights;
+
+            // Use provided image or fallback to default
+            existingFight.ImageUrl = string.IsNullOrEmpty(updatedFight.ImageUrl)
+                ? DefaultImageUrl
+                : updatedFight.ImageUrl;
 
             _context.Fights.Update(existingFight);
             await _context.SaveChangesAsync();

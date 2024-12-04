@@ -15,5 +15,8 @@
         public const int maxFighterLastNameLenght = 200;
         public const int minFighterNickNameLenght = 5;
         public const int maxFighterNickNameLenght = 200;
+
+        //not a url really, just a default pic
+        public const string DefaultImageUrl = "/images/default-fight.jpg";
     }
 }

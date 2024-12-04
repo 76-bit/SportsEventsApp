@@ -2,6 +2,16 @@
 
 <h1>@Model.Title</h1>
 
-<img src="@Model.ImageUrl" alt="@Model.Title" />
+<img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid mb-3" />
 <p>@Model.Description</p>
 <p>Date: @Model.DateOfTheFight.ToShortDateString()</p>
+
+<!-- Admin actions: Edit and Delete -->
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+}
+
+<!-- Back to list button -->
+<a asp-action="Index" class="btn btn-secondary">Back to All Fights</a>

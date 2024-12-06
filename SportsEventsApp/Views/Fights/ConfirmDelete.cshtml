@@ -1,0 +1,11 @@
+﻿@model SportsEventsApp.Models.FightViewModel
+
+<h1>Delete Fight</h1>
+
+<p>Are you sure you want to delete the fight: <strong>@Model.Title</strong>?</p>
+
+<form asp-action="ConfirmDelete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

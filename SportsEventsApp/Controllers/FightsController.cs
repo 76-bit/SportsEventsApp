@@ -2,16 +2,21 @@
 using SportsEventsApp.Services.Interfaces;
 using SportsEventsApp.Models;
 using SportsEventsApp.Data;
+using static SportsEventsApp.Constants.ModelConstants;
+using SportsEventsApp.Constants;
+using Microsoft.AspNetCore.Identity;
 
 namespace SportsEventsApp.Controllers
 {
     public class FightsController : Controller
     {
         private readonly IFightService _fightService;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public FightsController(IFightService fightService)
+        public FightsController(IFightService fightService, UserManager<IdentityUser> userManager)
         {
             _fightService = fightService;
+            _userManager = userManager;
         }
 
         // Display all fights with pagination
@@ -79,8 +84,8 @@ namespace SportsEventsApp.Controllers
                 Title = model.Title,
                 Description = model.Description,
                 DateOfTheFight = model.DateOfTheFight,
-                ImageUrl = model.ImageUrl,
-                PublisherId = User.Identity?.Name // Set publisher to current user
+                ImageUrl = string.IsNullOrEmpty(model.ImageUrl) ? ModelConstants.DefaultImageUrl : model.ImageUrl,
+                PublisherId = _userManager.GetUserId(User) // Replace with correct user ID
             };
 
             await _fightService.AddFightAsync(fight);
@@ -132,6 +137,33 @@ namespace SportsEventsApp.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             await _fightService.SoftDeleteFightAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Confirm Delete
+        public async Task<IActionResult> ConfirmDelete(Guid id)
+        {
+            var fight = await _fightService.GetFightByIdAsync(id);
+            if (fight == null || fight.IsDeleted)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new FightViewModel
+            {
+                Id = fight.Id,
+                Title = fight.Title
+            };
+
+            return View(viewModel);
+        }
+
+        // POST: Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDelete(FightViewModel model)
+        {
+            await _fightService.SoftDeleteFightAsync(model.Id);
             return RedirectToAction(nameof(Index));
         }
     }

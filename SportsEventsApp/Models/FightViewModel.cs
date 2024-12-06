@@ -17,5 +17,6 @@ namespace SportsEventsApp.Models
         [Required]
         public DateTime DateOfTheFight { get; set; }
         public string? ImageUrl { get; set; }
+        public List<FighterViewModel> Fighters { get; set; } = new List<FighterViewModel>();
     }
 }

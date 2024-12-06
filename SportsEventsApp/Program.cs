@@ -31,15 +31,18 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 // Add MVC Controllers and Views
 builder.Services.AddControllersWithViews();
 
-// Add Razor Pages
+// Adding Razor Pages
 builder.Services.AddRazorPages();
 
-// Add custom services
+// Add custom services:
+//Fight service
 builder.Services.AddScoped<IFightService, FightService>();
+//Fighter service
+builder.Services.AddScoped<IFighterService, FighterService>();
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();

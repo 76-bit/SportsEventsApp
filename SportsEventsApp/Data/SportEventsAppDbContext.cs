@@ -201,6 +201,16 @@ namespace SportsEventsApp.Data
                 {
                     FightId = adesanyaVsPereiraId,
                     FighterId = pereiraId
+                },
+                new FighterFight
+                {
+                    FightId = silvaVsSonnenId,
+                    FighterId = chaelId
+                },
+                new FighterFight
+                {
+                    FightId= silvaVsSonnenId,
+                    FighterId = andersonId
                 }
             );
         }

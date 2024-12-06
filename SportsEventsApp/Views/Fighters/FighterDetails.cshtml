@@ -1,0 +1,12 @@
+﻿@model SportsEventsApp.Models.FighterViewModel
+
+<h1>@Model.FirstName @Model.LastName</h1>
+<h2>Nickname: @Model.NickName</h2>
+
+<img src="@Model.ImageUrl" alt="@Model.NickName" class="img-fluid mb-3" />
+<p>Height: @Model.Height cm</p>
+<p>Reach: @Model.Reach cm</p>
+<p>Category: @Model.Category</p>
+<p>Date of Birth: @Model.DateOfBirth.ToShortDateString()</p>
+
+<a asp-action="Index" asp-controller="Fights" class="btn btn-secondary mt-3">Back to All Fights</a>

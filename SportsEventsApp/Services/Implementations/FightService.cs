@@ -27,9 +27,13 @@ namespace SportsEventsApp.Services.Implementations
         public async Task<Fight?> GetFightByIdAsync(Guid fightId)
         {
             return await _context.Fights
+                .Include(f => f.FighterFights) // Include the relationship
+                    .ThenInclude(ff => ff.Fighter) // Include the Fighter entity
+                        .ThenInclude(f => f.Category) // Include the Category of the Fighter
                 .Where(f => !f.IsDeleted && f.Id == fightId)
                 .FirstOrDefaultAsync();
         }
+
 
         // Add a new fight
         public async Task AddFightAsync(Fight fight)
@@ -111,5 +115,6 @@ namespace SportsEventsApp.Services.Implementations
                 .OrderByDescending(f => f.DateOfTheFight)
                 .ToListAsync();
         }
+
     }
 }

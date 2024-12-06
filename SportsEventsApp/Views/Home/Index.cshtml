@@ -12,11 +12,13 @@
             All Fights
         </a>
 
-        <!-- Buttons for Upcoming and Archived (future functionality) -->
-        <a class="btn btn-secondary btn-lg" disabled>
+        <!-- Button for Upcoming Fights -->
+        <a asp-controller="Fights" asp-action="Upcoming" class="btn btn-success btn-lg">
             Upcoming Fights
         </a>
-        <a class="btn btn-secondary btn-lg" disabled>
+
+        <!-- Button for Archived Fights -->
+        <a asp-controller="Fights" asp-action="Archived" class="btn btn-info btn-lg">
             Archived Fights
         </a>
     </div>

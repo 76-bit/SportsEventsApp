@@ -6,12 +6,18 @@
 <p>@Model.Description</p>
 <p>Date: @Model.DateOfTheFight.ToShortDateString()</p>
 
-<!-- Admin actions: Edit and Delete -->
-@if (User.IsInRole("Admin"))
-{
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
-    <a asp-action="ConfirmDelete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
-}
+<!-- Fighter Buttons -->
+<div class="fighter-buttons mt-3">
+    @if (Model.Fighters?.Count >= 2)
+    {
+        <a asp-controller="Fighters" asp-action="Details" asp-route-id="@Model.Fighters[0].Id" class="btn btn-primary">
+            Fighter: @Model.Fighters[0].FirstName @Model.Fighters[0].LastName
+        </a>
+        <a asp-controller="Fighters" asp-action="Details" asp-route-id="@Model.Fighters[1].Id" class="btn btn-secondary">
+            Fighter: @Model.Fighters[1].FirstName @Model.Fighters[1].LastName
+        </a>
+    }
+</div>
 
-<!-- Back to list button -->
-<a asp-action="Index" class="btn btn-secondary">Back to All Fights</a>
+<!-- Back to All Fights Button -->
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to All Fights</a>

@@ -1,0 +1,24 @@
+﻿@model SportsEventsApp.Models.FighterViewModel
+
+@{
+    ViewData["Title"] = "Delete Fighter";
+}
+
+<h1>Delete Fighter</h1>
+
+<div class="alert alert-warning">
+    <h4>Are you sure you want to delete this fighter?</h4>
+    <p>
+        <strong>@Model.FirstName @Model.LastName (@Model.NickName)</strong>
+    </p>
+</div>
+
+<div class="fighter-details">
+    <img src="@Model.ImageUrl" alt="@Model.NickName" class="img-fluid mb-3" style="max-width: 200px;" />
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

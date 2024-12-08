@@ -56,4 +56,7 @@ public class Fighter
 
     [NotMapped]
     public string FullName => $"{FirstName} '{NickName}' {LastName}";
+
+    [Comment("Indicates wether the fighter is deleted (soft delete).")]
+    public bool IsDeleted { get; set; } = false;
 }

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SportsEventsApp.Views.Fighters
 {
-    public class DetailsModel : PageModel
+    public class FightersIndexModel : PageModel
     {
         public void OnGet()
         {

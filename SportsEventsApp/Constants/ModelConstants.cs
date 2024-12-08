@@ -18,5 +18,8 @@
 
         //not a url really, just a default pic
         public const string DefaultImageUrl = "/images/default-fight.jpg";
+
+        public const int minFighterViewModelNameLength = 2;
+        public const int maxFighterViewModelNameLength = 50;
     }
 }

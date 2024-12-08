@@ -39,6 +39,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IFightService, FightService>();
 //Fighter service
 builder.Services.AddScoped<IFighterService, FighterService>();
+//Category serrvice
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 
 var app = builder.Build();

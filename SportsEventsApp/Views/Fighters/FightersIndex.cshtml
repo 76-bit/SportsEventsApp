@@ -1,0 +1,23 @@
+﻿@model List<SportsEventsApp.Models.FighterViewModel>
+
+@{
+    ViewData["Title"] = "Fighters";
+}
+
+<h1>Fighters</h1>
+
+<div class="row">
+    @foreach (var fighter in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="@fighter.ImageUrl" class="card-img-top" alt="@fighter.NickName">
+                <div class="card-body">
+                    <h5 class="card-title">@fighter.FirstName @fighter.LastName (@fighter.NickName)</h5>
+                    <p class="card-text">@fighter.Country</p>
+                    <a asp-action="Details" asp-route-id="@fighter.Id" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

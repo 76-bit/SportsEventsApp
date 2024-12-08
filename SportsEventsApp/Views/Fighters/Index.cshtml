@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SportsEventsApp.Models.FighterViewModel>
+
+@{
+    ViewData["Title"] = "All Fighters";
+}
+
+<h1>All Fighters</h1>
+
+<!-- Add Fighter Button (Visible for Admins Only) -->
+@if (User.IsInRole("Admin"))
+{
+    <div class="mb-3">
+        <a asp-action="Add" class="btn btn-success">Add Fighter</a>
+    </div>
+}
+
+<div class="row">
+    @foreach (var fighter in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="@fighter.ImageUrl" class="card-img-top" alt="@fighter.NickName">
+                <div class="card-body">
+                    <h5 class="card-title">@fighter.FirstName @fighter.LastName</h5>
+                    <p class="card-text"><strong>Nickname:</strong> @fighter.NickName</p>
+                    <p class="card-text"><strong>Height:</strong> @fighter.Height cm</p>
+                    <p class="card-text"><strong>Reach:</strong> @fighter.Reach cm</p>
+                    <p class="card-text"><strong>Country:</strong> @fighter.Country</p>
+                    <p class="card-text"><strong>Category:</strong> @fighter.Category</p>
+
+                    <!-- Admin Buttons -->
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@fighter.Id" class="btn btn-primary">Edit</a>
+                        <form asp-action="Delete" asp-route-id="@fighter.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this fighter?');">
+                                Delete
+                            </button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

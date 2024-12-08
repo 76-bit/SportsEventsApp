@@ -46,6 +46,9 @@ namespace SportsEventsApp.Data
         [Comment("this is a bool that keeps track of the status of the fight- deleted or not (soft delete)")]
         public bool IsDeleted { get; set; } = false;
 
+        [Comment("The link to the youtube video of the fight")]
+        public string YouTubeUrl { get; set; }
+
 
     }
 }

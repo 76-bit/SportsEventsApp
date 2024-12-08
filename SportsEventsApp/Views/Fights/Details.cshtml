@@ -2,7 +2,36 @@
 
 <h1>@Model.Title</h1>
 
-<img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid mb-3" />
+<!-- Show YouTube video or a placeholder image -->
+@if (!string.IsNullOrEmpty(Model.YouTubeUrl) && Model.YouTubeUrl.Contains("youtube.com/watch"))
+{
+    // Extract video ID from YouTube URL using regex
+    var videoIdMatch = System.Text.RegularExpressions.Regex.Match(Model.YouTubeUrl, @"(?:v=|\/)([a-zA-Z0-9_-]{11})");
+
+    if (videoIdMatch.Success)
+    {
+        var videoId = videoIdMatch.Groups[1].Value;
+        var embedUrl = $"https://www.youtube.com/embed/{videoId}?autoplay=1&modestbranding=1&rel=0&showinfo=0";
+        <iframe width="560"
+                height="315"
+                src="@embedUrl"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+    }
+    else
+    {
+        <img src="/images/default-youtube.jpg" alt="Video unavailable" class="img-fluid mb-3" />
+    }
+}
+else
+{
+    <img src="/images/default-youtube.jpg" alt="Video unavailable" class="img-fluid mb-3" />
+}
+
+<!-- Fight details -->
 <p>@Model.Description</p>
 <p>Date: @Model.DateOfTheFight.ToShortDateString()</p>
 
@@ -18,6 +47,15 @@
         </a>
     }
 </div>
+
+<!-- Admin actions: Edit and Delete -->
+@if (User.IsInRole("Admin"))
+{
+    <div class="admin-buttons mt-3">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+        <a asp-action="ConfirmDelete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+    </div>
+}
 
 <!-- Back to All Fights Button -->
 <a asp-action="Index" class="btn btn-secondary mt-3">Back to All Fights</a>

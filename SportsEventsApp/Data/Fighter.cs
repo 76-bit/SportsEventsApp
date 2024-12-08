@@ -49,4 +49,11 @@ public class Fighter
 
     [Comment("URL for the fighter's image")]
     public string? ImageUrl { get; set; } = "https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg";
+
+    [Required]
+    [Comment("The nationality of the fighter")]
+    public string Country { get; set; } = null!;
+
+    [NotMapped]
+    public string FullName => $"{FirstName} '{NickName}' {LastName}";
 }

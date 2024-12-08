@@ -72,6 +72,7 @@ namespace SportsEventsApp.Data
                     DateOfTheFight = new DateTime(2018, 10, 6),
                     ImageUrl = "https://i.ytimg.com/vi/JuBBIJ7adjM/hq720.jpg",
                     PublisherId = adminId,
+                    YouTubeUrl = "https://www.youtube.com/watch?v=JuBBIJ7adjM",
                     IsDeleted = false
                 },
                 new Fight
@@ -82,6 +83,7 @@ namespace SportsEventsApp.Data
                     DateOfTheFight = new DateTime(2023, 4, 8),
                     ImageUrl = "https://www.bet-experts.com/wp-content/uploads/2023/04/ufc-287-bet-experts.jpg",
                     PublisherId = adminId,
+                    YouTubeUrl = "https://www.youtube.com/watch?v=yKdi_7cscd0",
                     IsDeleted = false
                 },
                 new Fight
@@ -92,6 +94,7 @@ namespace SportsEventsApp.Data
                     DateOfTheFight = new DateTime(2012, 7, 7),
                     ImageUrl = "https://i.ytimg.com/vi/ugQCRH9f5QU/maxresdefault.jpg",
                     PublisherId = adminId,
+                    YouTubeUrl = "https://www.youtube.com/watch?v=DpLaqnwFQEY",
                     IsDeleted = false
                 }
             );
@@ -115,6 +118,7 @@ namespace SportsEventsApp.Data
                     DateOfBirth = new DateTime(1988, 7, 14),
                     Height = 5.8,
                     Reach = 74,
+                    Country = "Ireland",
                     CategoryId = lightweightId,
                     ImageUrl = "https://www.sherdog.com/image_crop/200/300/_images/fighter/20220325093124_Conor_McGregor_ff.JPG"
                 },
@@ -127,20 +131,9 @@ namespace SportsEventsApp.Data
                     DateOfBirth = new DateTime(1988, 9, 20),
                     Height = 5.10,
                     Reach = 70,
+                    Country = "Russia",
                     CategoryId = lightweightId,
                     ImageUrl = "https://www.datocms-assets.com/99008/1696277875-untitled-design-5.png"
-                },
-                new Fighter
-                {
-                    Id = adesanyaId,
-                    FirstName = "Israel",
-                    LastName = "Adesanya",
-                    NickName = "The Last Stylebender",
-                    DateOfBirth = new DateTime(1989, 7, 22),
-                    Height = 6.4,
-                    Reach = 80,
-                    CategoryId = middleweightId,
-                    ImageUrl = "https://glory.pinkyellow.network/assets/fighters/israel-the-last-style-bender-adesanya/thumbnail.jpg"
                 },
                 new Fighter
                 {
@@ -151,8 +144,22 @@ namespace SportsEventsApp.Data
                     DateOfBirth = new DateTime(1987, 7, 7),
                     Height = 6.4,
                     Reach = 79,
+                    Country = "Brazil",
                     CategoryId = middleweightId,
                     ImageUrl = "https://dmxg5wxfqgb4u.cloudfront.net/styles/card_advance_small_280x356/s3/2024-10/100324-Alex-Pereira-UFC-307-Press-Conference-THUMB-GettyImages-2176549340.jpg?itok=5C_djKwj"
+                },
+                new Fighter
+                {
+                    Id = adesanyaId,
+                    FirstName = "Israel",
+                    LastName = "Adesanya",
+                    NickName = "The Last Stylebender",
+                    DateOfBirth = new DateTime(1989, 7, 22),
+                    Height = 6.4,
+                    Reach = 80,
+                    Country = "Nigeria",
+                    CategoryId = middleweightId,
+                    ImageUrl = "https://glory.pinkyellow.network/assets/fighters/israel-the-last-style-bender-adesanya/thumbnail.jpg"
                 },
                 new Fighter
                 {
@@ -163,6 +170,7 @@ namespace SportsEventsApp.Data
                     DateOfBirth= new DateTime(1975, 8, 14),
                     Height = 6.2,
                     Reach = 77,
+                    Country = "Brazil",
                     CategoryId = middleweightId,
                     ImageUrl = "https://www.denverpost.com/wp-content/uploads/2016/04/20140801_084436_anderson-silva.jpg?w=640"
                 },
@@ -175,6 +183,7 @@ namespace SportsEventsApp.Data
                     DateOfBirth= new DateTime(1977, 4, 3),
                     Height = 6.1,
                     Reach = 73,
+                    Country = "U.S.",
                     CategoryId = middleweightId,
                     ImageUrl = "https://www.sherdog.com/image_crop/200/300/_images/fighter/20131219125416_chael_sonnen.JPG"
                 }

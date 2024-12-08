@@ -10,13 +10,19 @@ namespace SportsEventsApp.Models
         [Required]
         [StringLength(maxFightTitleLenght, MinimumLength = minFightTitleLenght)]
         public string Title { get; set; } = null!;
+
         [Required]
         [StringLength(maxFightDescLenght, MinimumLength = minFightDescLenght)]
         public string Description { get; set; } = null!;
 
         [Required]
         public DateTime DateOfTheFight { get; set; }
+
         public string? ImageUrl { get; set; }
-        public List<FighterViewModel> Fighters { get; set; } = new List<FighterViewModel>();
+
+        // New YouTube URL property
+        public string? YouTubeUrl { get; set; }
+
+        public List<FighterViewModel>? Fighters { get; set; }
     }
 }

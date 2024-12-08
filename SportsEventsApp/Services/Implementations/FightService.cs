@@ -34,11 +34,12 @@ namespace SportsEventsApp.Services.Implementations
                 .FirstOrDefaultAsync();
         }
 
-
         // Add a new fight
-        public async Task AddFightAsync(Fight fight)
+        public async Task AddFightAsync(Fight fight, List<Guid> fighterIds)
         {
             if (fight == null) throw new ArgumentNullException(nameof(fight));
+            if (fighterIds == null || fighterIds.Count != 2)
+                throw new ArgumentException("Exactly two fighter IDs must be provided.", nameof(fighterIds));
 
             // Assign default image if none is provided
             if (string.IsNullOrEmpty(fight.ImageUrl))
@@ -46,19 +47,36 @@ namespace SportsEventsApp.Services.Implementations
                 fight.ImageUrl = DefaultImageUrl;
             }
 
+            // Assign default YouTube thumbnail if no URL is provided
+            if (string.IsNullOrEmpty(fight.YouTubeUrl))
+            {
+                fight.YouTubeUrl = "/images/default-youtube.jpg"; // Default "no video" image path
+            }
+
+            // Link fighters to the fight
+            fight.FighterFights = fighterIds.Select(fighterId => new FighterFight
+            {
+                FighterId = fighterId,
+                FightId = fight.Id
+            }).ToList();
+
             _context.Fights.Add(fight);
             await _context.SaveChangesAsync();
         }
 
         // Edit an existing fight
-        public async Task EditFightAsync(Fight updatedFight)
+        public async Task EditFightAsync(Fight updatedFight, List<Guid> fighterIds)
         {
-            var existingFight = await _context.Fights.FindAsync(updatedFight.Id);
+            var existingFight = await _context.Fights
+                .Include(f => f.FighterFights)
+                .FirstOrDefaultAsync(f => f.Id == updatedFight.Id);
+
             if (existingFight == null || existingFight.IsDeleted)
             {
                 throw new InvalidOperationException("Cannot edit a non-existent or deleted fight.");
             }
 
+            // Update basic fight details
             existingFight.Title = updatedFight.Title;
             existingFight.Description = updatedFight.Description;
             existingFight.DateOfTheFight = updatedFight.DateOfTheFight;
@@ -67,6 +85,17 @@ namespace SportsEventsApp.Services.Implementations
             existingFight.ImageUrl = string.IsNullOrEmpty(updatedFight.ImageUrl)
                 ? DefaultImageUrl
                 : updatedFight.ImageUrl;
+
+            // Update YouTube URL
+            existingFight.YouTubeUrl = updatedFight.YouTubeUrl;
+
+            // Update linked fighters
+            _context.FightersFights.RemoveRange(existingFight.FighterFights); // Clear existing links
+            existingFight.FighterFights = fighterIds.Select(fighterId => new FighterFight
+            {
+                FighterId = fighterId,
+                FightId = existingFight.Id
+            }).ToList();
 
             _context.Fights.Update(existingFight);
             await _context.SaveChangesAsync();
@@ -116,5 +145,26 @@ namespace SportsEventsApp.Services.Implementations
                 .ToListAsync();
         }
 
+        public async Task<Fighter?> GetFighterByIdAsync(Guid fighterId)
+        {
+            return await _context.Fighters.FindAsync(fighterId);
+        }
+        public async Task<List<Fighter>> GetAllFightersAsync()
+        {
+            return await _context.Fighters
+                .Select(f => new Fighter
+                {
+                    Id = f.Id,
+                    FirstName = f.FirstName,
+                    LastName = f.LastName,
+                    NickName = f.NickName,
+                    DateOfBirth = f.DateOfBirth,
+                    Height = f.Height,
+                    Reach = f.Reach,
+                    Category = f.Category,
+                    ImageUrl = f.ImageUrl,
+                    Country = f.Country
+                }).ToListAsync();
+        }
     }
 }

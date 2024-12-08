@@ -5,6 +5,7 @@ using SportsEventsApp.Data;
 using static SportsEventsApp.Constants.ModelConstants;
 using SportsEventsApp.Constants;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SportsEventsApp.Controllers
 {
@@ -58,6 +59,7 @@ namespace SportsEventsApp.Controllers
 				Description = fight.Description,
 				DateOfTheFight = fight.DateOfTheFight,
 				ImageUrl = fight.ImageUrl,
+                YouTubeUrl = fight.YouTubeUrl,
 				Fighters = fight.FighterFights
 					.Where(ff => ff.Fighter != null) // Ensure Fighter is not null
 					.Select(ff => new FighterViewModel
@@ -79,34 +81,54 @@ namespace SportsEventsApp.Controllers
 		}
 
 
-		// Add a new fight (GET)
-		public IActionResult Add()
+        // Add a new fight (GET)
+        public async Task<IActionResult> Add()
         {
+            var fighters = await _fightService.GetAllFightersAsync();
+
+            // Populate ViewBag with available fighters
+            ViewBag.Fighters = fighters.Select(f => new SelectListItem
+            {
+                Value = f.Id.ToString(),
+                Text = $"{f.FirstName} {f.LastName} ({f.NickName})"
+            }).ToList();
+
             return View(new FightViewModel());
         }
 
-        // Add a new fight (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(FightViewModel model)
+        public async Task<IActionResult> Add(FightViewModel model, [FromForm] List<Guid> SelectedFighters)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
+            // Validate that exactly two fighters are provided
+            if (SelectedFighters == null || SelectedFighters.Count != 2)
+            {
+                ModelState.AddModelError(string.Empty, "You must select exactly two fighters.");
+                return View(model);
+            }
+
+            // Create the new fight object
             var fight = new Fight
             {
                 Title = model.Title,
                 Description = model.Description,
                 DateOfTheFight = model.DateOfTheFight,
                 ImageUrl = string.IsNullOrEmpty(model.ImageUrl) ? ModelConstants.DefaultImageUrl : model.ImageUrl,
-                PublisherId = _userManager.GetUserId(User) // Replace with correct user ID
+                YouTubeUrl = model.YouTubeUrl,
+                PublisherId = _userManager.GetUserId(User)
             };
 
-            await _fightService.AddFightAsync(fight);
+            // Pass the fight and fighter IDs to the service
+            await _fightService.AddFightAsync(fight, SelectedFighters);
+
             return RedirectToAction(nameof(Index));
         }
+
 
         // Edit an existing fight (GET)
         public async Task<IActionResult> Edit(Guid id)
@@ -120,8 +142,21 @@ namespace SportsEventsApp.Controllers
                 Title = fight.Title,
                 Description = fight.Description,
                 DateOfTheFight = fight.DateOfTheFight,
-                ImageUrl = fight.ImageUrl
+                ImageUrl = fight.ImageUrl,
+                YouTubeUrl = fight.YouTubeUrl,
+                Fighters = fight.FighterFights
+                    .Select(ff => new FighterViewModel
+                    {
+                        Id = ff.FighterId
+                    }).ToList()
             };
+
+            ViewBag.Fighters = (await _fightService.GetAllFightersAsync())
+                .Select(f => new SelectListItem
+                {
+                    Value = f.Id.ToString(),
+                    Text = $"{f.FirstName} {f.LastName} ({f.NickName})"
+                }).ToList();
 
             return View(viewModel);
         }
@@ -129,25 +164,43 @@ namespace SportsEventsApp.Controllers
         // Edit an existing fight (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(FightViewModel model)
+        public async Task<IActionResult> Edit(FightViewModel model, List<Guid> SelectedFighters)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
+            // Validate that exactly two fighters are selected
+            if (SelectedFighters == null || SelectedFighters.Count != 2)
+            {
+                ModelState.AddModelError(string.Empty, "You must select exactly two fighters.");
+                ViewBag.Fighters = (await _fightService.GetAllFightersAsync())
+                    .Select(f => new SelectListItem
+                    {
+                        Value = f.Id.ToString(),
+                        Text = $"{f.FirstName} {f.LastName} ({f.NickName})"
+                    }).ToList();
+                return View(model);
+            }
+
+            // Create the updated fight object
             var fight = new Fight
             {
                 Id = model.Id,
                 Title = model.Title,
                 Description = model.Description,
                 DateOfTheFight = model.DateOfTheFight,
-                ImageUrl = model.ImageUrl,
+                ImageUrl = string.IsNullOrEmpty(model.ImageUrl) ? ModelConstants.DefaultImageUrl : model.ImageUrl,
+                YouTubeUrl = model.YouTubeUrl
             };
 
-            await _fightService.EditFightAsync(fight);
+            // Update fight with selected fighters
+            await _fightService.EditFightAsync(fight, SelectedFighters);
+
             return RedirectToAction(nameof(Index));
         }
+
 
         // Soft-delete a fight
         public async Task<IActionResult> Delete(Guid id)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportsEventsApp.Data;
 
@@ -11,9 +12,11 @@ using SportsEventsApp.Data;
 namespace SportsEventsApp.Data.Migrations
 {
     [DbContext(typeof(SportEventsAppDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241207080452_AddedYouTubeToFights")]
+    partial class AddedYouTubeToFights
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,8 +83,8 @@ namespace SportsEventsApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1d871af6-cfcd-4d58-9f06-8ca66b2ddbd3"),
-                            CategoryId = new Guid("b707fc23-4f84-43f2-ab19-c785e26db3a9"),
+                            Id = new Guid("e80733ba-f7dd-4606-bb35-a8963f64a203"),
+                            CategoryId = new Guid("ddb8628a-e3fd-4110-9bb6-e6051d77fe91"),
                             Country = "Ireland",
                             DateOfBirth = new DateTime(1988, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Conor",
@@ -93,8 +96,8 @@ namespace SportsEventsApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2b01d857-6d3f-4389-b7bc-99d01be4f416"),
-                            CategoryId = new Guid("b707fc23-4f84-43f2-ab19-c785e26db3a9"),
+                            Id = new Guid("f83610a7-261e-4322-80a7-2f5a111ce50f"),
+                            CategoryId = new Guid("ddb8628a-e3fd-4110-9bb6-e6051d77fe91"),
                             Country = "Russia",
                             DateOfBirth = new DateTime(1988, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Khabib",
@@ -106,8 +109,8 @@ namespace SportsEventsApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("678e1c6d-668a-4b2e-b211-d9275175112d"),
-                            CategoryId = new Guid("3aff3d1f-82c8-4739-aafd-5fe199c6b530"),
+                            Id = new Guid("70483d62-1771-48f2-9c1b-065894373cba"),
+                            CategoryId = new Guid("3e824996-9440-4d6b-8591-b429d0211506"),
                             Country = "Brazil",
                             DateOfBirth = new DateTime(1987, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Alex",
@@ -119,8 +122,8 @@ namespace SportsEventsApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c76317ce-92be-4b00-83db-fbb16c89917e"),
-                            CategoryId = new Guid("3aff3d1f-82c8-4739-aafd-5fe199c6b530"),
+                            Id = new Guid("403046cc-9ee0-4516-ae15-01c6f923e57e"),
+                            CategoryId = new Guid("3e824996-9440-4d6b-8591-b429d0211506"),
                             Country = "Nigeria",
                             DateOfBirth = new DateTime(1989, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Israel",
@@ -132,8 +135,8 @@ namespace SportsEventsApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d4b673ce-0732-4d93-a424-80676687ee52"),
-                            CategoryId = new Guid("3aff3d1f-82c8-4739-aafd-5fe199c6b530"),
+                            Id = new Guid("9d8a21c7-7cb6-47cb-8d6b-69c2ebeb2108"),
+                            CategoryId = new Guid("3e824996-9440-4d6b-8591-b429d0211506"),
                             Country = "Brazil",
                             DateOfBirth = new DateTime(1975, 8, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Anderson",
@@ -145,8 +148,8 @@ namespace SportsEventsApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9227c063-6c2f-4a32-bff9-827de97b7496"),
-                            CategoryId = new Guid("3aff3d1f-82c8-4739-aafd-5fe199c6b530"),
+                            Id = new Guid("b4c9996e-fd22-45ce-9657-bfe26e3505dd"),
+                            CategoryId = new Guid("3e824996-9440-4d6b-8591-b429d0211506"),
                             Country = "U.S.",
                             DateOfBirth = new DateTime(1977, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Chael",
@@ -277,17 +280,17 @@ namespace SportsEventsApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "768eac92-3bf1-4fbe-bb4f-cdd028daff93",
+                            Id = "8144e996-a8f3-4235-b0d4-82a6e9b9bbda",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "16c4e954-8e6c-4157-8566-aede5ac4e214",
+                            ConcurrencyStamp = "3c5c02a7-5955-480f-8198-16f4149f5828",
                             Email = "admin@mma.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MMA.COM",
                             NormalizedUserName = "ADMIN@MMA.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGnKmln5CWa7dISrPIGQo8J0hyen4lwZMMyxr2qxtMOganJWrkaWVz3txgmoESqTpw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL/X3FQZ7fVI2yodvM+AX8+KOplaNC/RfY/bELWXaaL9kcfZ2MqI0Q+JAtrni0w72Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e0c4d36d-73a2-4394-a794-a87dcd84a8e9",
+                            SecurityStamp = "c9f68d84-b460-4816-9a88-1c44147a1341",
                             TwoFactorEnabled = false,
                             UserName = "admin@mma.com"
                         });
@@ -401,63 +404,63 @@ namespace SportsEventsApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("57b39e13-b12f-4d06-842e-029b65b206ec"),
+                            Id = new Guid("187ef30b-d99f-4ad5-b9ba-5cd607150be5"),
                             MaxWeight = 115.0,
                             MinWeight = 106.0,
                             Name = "Strawweight"
                         },
                         new
                         {
-                            Id = new Guid("b8222d1f-2253-4e1f-94c3-dcea83a706bc"),
+                            Id = new Guid("84e5851c-c7b0-4c67-b1f3-7c842e09b10e"),
                             MaxWeight = 125.0,
                             MinWeight = 115.0,
                             Name = "Flyweight"
                         },
                         new
                         {
-                            Id = new Guid("93c90451-bcc6-4f11-98f1-10094e87ceb3"),
+                            Id = new Guid("f8211693-1bcc-4775-ac9c-264168eb8502"),
                             MaxWeight = 135.0,
                             MinWeight = 125.0,
                             Name = "Bantamweight"
                         },
                         new
                         {
-                            Id = new Guid("611faa20-6348-4232-840d-159cae996863"),
+                            Id = new Guid("e95e16bd-8376-4d2e-8b5a-c4c565ed2454"),
                             MaxWeight = 145.0,
                             MinWeight = 135.0,
                             Name = "Featherweight"
                         },
                         new
                         {
-                            Id = new Guid("b707fc23-4f84-43f2-ab19-c785e26db3a9"),
+                            Id = new Guid("ddb8628a-e3fd-4110-9bb6-e6051d77fe91"),
                             MaxWeight = 155.0,
                             MinWeight = 145.0,
                             Name = "Lightweight"
                         },
                         new
                         {
-                            Id = new Guid("ba58d0b5-a05c-4b21-8917-7534e9b3d9ef"),
+                            Id = new Guid("376c73f0-2399-412b-8259-4410930fb19f"),
                             MaxWeight = 170.0,
                             MinWeight = 155.0,
                             Name = "Welterweight"
                         },
                         new
                         {
-                            Id = new Guid("3aff3d1f-82c8-4739-aafd-5fe199c6b530"),
+                            Id = new Guid("3e824996-9440-4d6b-8591-b429d0211506"),
                             MaxWeight = 185.0,
                             MinWeight = 170.0,
                             Name = "Middleweight"
                         },
                         new
                         {
-                            Id = new Guid("36255963-a867-4602-86b3-8faf785cd3ff"),
+                            Id = new Guid("9c918936-c07b-44ea-baa2-7f6ab56d1a9a"),
                             MaxWeight = 205.0,
                             MinWeight = 185.0,
                             Name = "Light Heavyweight"
                         },
                         new
                         {
-                            Id = new Guid("db87b6e1-9bce-41c7-9d9c-08922961f40a"),
+                            Id = new Guid("90d86c9b-26dd-4d01-9c6f-cdc5361f2e4f"),
                             MaxWeight = 265.0,
                             MinWeight = 205.0,
                             Name = "Heavyweight"
@@ -514,34 +517,34 @@ namespace SportsEventsApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0b6e061b-104b-439c-90a3-f5d63ac4643a"),
+                            Id = new Guid("71c20fb5-cfb9-4e1c-b48d-773b6a491f4d"),
                             DateOfTheFight = new DateTime(2018, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "A legendary UFC fight between two icons of the sport.",
                             ImageUrl = "https://i.ytimg.com/vi/JuBBIJ7adjM/hq720.jpg",
                             IsDeleted = false,
-                            PublisherId = "768eac92-3bf1-4fbe-bb4f-cdd028daff93",
+                            PublisherId = "8144e996-a8f3-4235-b0d4-82a6e9b9bbda",
                             Title = "Conor McGregor vs Khabib Nurmagomedov",
                             YouTubeUrl = "https://www.youtube.com/watch?v=JuBBIJ7adjM"
                         },
                         new
                         {
-                            Id = new Guid("0198e85d-8055-42a7-bd9e-0dae48e25fe6"),
+                            Id = new Guid("c6c9cb75-e69a-46a1-bce5-dc531657ca4c"),
                             DateOfTheFight = new DateTime(2023, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "A thrilling bout between two fierce rivals.",
                             ImageUrl = "https://www.bet-experts.com/wp-content/uploads/2023/04/ufc-287-bet-experts.jpg",
                             IsDeleted = false,
-                            PublisherId = "768eac92-3bf1-4fbe-bb4f-cdd028daff93",
+                            PublisherId = "8144e996-a8f3-4235-b0d4-82a6e9b9bbda",
                             Title = "Israel Adesanya vs Alex Pereira",
                             YouTubeUrl = "https://www.youtube.com/watch?v=yKdi_7cscd0"
                         },
                         new
                         {
-                            Id = new Guid("60618752-fba4-4253-a730-49f3e3b93923"),
+                            Id = new Guid("bfec4b7f-d3b2-4863-a9cc-4250911340bf"),
                             DateOfTheFight = new DateTime(2012, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "A classic middleweight bout filled with drama.",
                             ImageUrl = "https://i.ytimg.com/vi/ugQCRH9f5QU/maxresdefault.jpg",
                             IsDeleted = false,
-                            PublisherId = "768eac92-3bf1-4fbe-bb4f-cdd028daff93",
+                            PublisherId = "8144e996-a8f3-4235-b0d4-82a6e9b9bbda",
                             Title = "Anderson Silva vs Chael Sonnen",
                             YouTubeUrl = "https://www.youtube.com/watch?v=DpLaqnwFQEY"
                         });
@@ -564,33 +567,33 @@ namespace SportsEventsApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            FighterId = new Guid("1d871af6-cfcd-4d58-9f06-8ca66b2ddbd3"),
-                            FightId = new Guid("0b6e061b-104b-439c-90a3-f5d63ac4643a")
+                            FighterId = new Guid("e80733ba-f7dd-4606-bb35-a8963f64a203"),
+                            FightId = new Guid("71c20fb5-cfb9-4e1c-b48d-773b6a491f4d")
                         },
                         new
                         {
-                            FighterId = new Guid("2b01d857-6d3f-4389-b7bc-99d01be4f416"),
-                            FightId = new Guid("0b6e061b-104b-439c-90a3-f5d63ac4643a")
+                            FighterId = new Guid("f83610a7-261e-4322-80a7-2f5a111ce50f"),
+                            FightId = new Guid("71c20fb5-cfb9-4e1c-b48d-773b6a491f4d")
                         },
                         new
                         {
-                            FighterId = new Guid("c76317ce-92be-4b00-83db-fbb16c89917e"),
-                            FightId = new Guid("0198e85d-8055-42a7-bd9e-0dae48e25fe6")
+                            FighterId = new Guid("403046cc-9ee0-4516-ae15-01c6f923e57e"),
+                            FightId = new Guid("c6c9cb75-e69a-46a1-bce5-dc531657ca4c")
                         },
                         new
                         {
-                            FighterId = new Guid("678e1c6d-668a-4b2e-b211-d9275175112d"),
-                            FightId = new Guid("0198e85d-8055-42a7-bd9e-0dae48e25fe6")
+                            FighterId = new Guid("70483d62-1771-48f2-9c1b-065894373cba"),
+                            FightId = new Guid("c6c9cb75-e69a-46a1-bce5-dc531657ca4c")
                         },
                         new
                         {
-                            FighterId = new Guid("9227c063-6c2f-4a32-bff9-827de97b7496"),
-                            FightId = new Guid("60618752-fba4-4253-a730-49f3e3b93923")
+                            FighterId = new Guid("b4c9996e-fd22-45ce-9657-bfe26e3505dd"),
+                            FightId = new Guid("bfec4b7f-d3b2-4863-a9cc-4250911340bf")
                         },
                         new
                         {
-                            FighterId = new Guid("d4b673ce-0732-4d93-a424-80676687ee52"),
-                            FightId = new Guid("60618752-fba4-4253-a730-49f3e3b93923")
+                            FighterId = new Guid("9d8a21c7-7cb6-47cb-8d6b-69c2ebeb2108"),
+                            FightId = new Guid("bfec4b7f-d3b2-4863-a9cc-4250911340bf")
                         });
                 });
 

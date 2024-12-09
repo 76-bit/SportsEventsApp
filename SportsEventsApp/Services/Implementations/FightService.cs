@@ -147,11 +147,16 @@ namespace SportsEventsApp.Services.Implementations
 
         public async Task<Fighter?> GetFighterByIdAsync(Guid fighterId)
         {
-            return await _context.Fighters.FindAsync(fighterId);
+            return await _context.Fighters
+                .Where(f => !f.IsDeleted) // Exclude deleted fighters
+                .FirstOrDefaultAsync(f => f.Id == fighterId);
         }
+
         public async Task<List<Fighter>> GetAllFightersAsync()
         {
             return await _context.Fighters
+                .Where(f => !f.IsDeleted) // Exclude deleted fighters
+                .Include(f => f.Category) // Ensure Category is included
                 .Select(f => new Fighter
                 {
                     Id = f.Id,
@@ -164,7 +169,8 @@ namespace SportsEventsApp.Services.Implementations
                     Category = f.Category,
                     ImageUrl = f.ImageUrl,
                     Country = f.Country
-                }).ToListAsync();
+                })
+                .ToListAsync();
         }
     }
 }

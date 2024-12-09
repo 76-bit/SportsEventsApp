@@ -16,6 +16,18 @@ namespace SportsEventsApp.Data
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<FighterFight>()
+               .HasOne(ff => ff.Fighter)
+               .WithMany(f => f.FighterFights) // Navigation property
+               .HasForeignKey(ff => ff.FighterId)
+               .OnDelete(DeleteBehavior.NoAction); // Prevent cascade delete
+
+            builder.Entity<FighterFight>()
+                .HasOne(ff => ff.Fight)
+                .WithMany(f => f.FighterFights) // Ensure Fight navigation is configured
+                .HasForeignKey(ff => ff.FightId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Predefined IDs for categories
             var strawweightId = Guid.NewGuid();
             var flyweightId = Guid.NewGuid();

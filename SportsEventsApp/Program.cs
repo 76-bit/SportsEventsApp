@@ -51,7 +51,13 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
+    // Catch 404 errors first
+    app.UseStatusCodePagesWithReExecute("/Error/Error404");
+
+    // Then handle other errors (500 errors)
+    app.UseExceptionHandler("/Error/Error500");
+
+    // Apply HSTS (HTTP Strict Transport Security)
     app.UseHsts();
 }
 

@@ -59,4 +59,7 @@ public class Fighter
 
     [Comment("Indicates wether the fighter is deleted (soft delete).")]
     public bool IsDeleted { get; set; } = false;
+
+    // Navigation property for FighterFights
+    public ICollection<FighterFight> FighterFights { get; set; } = new List<FighterFight>();
 }

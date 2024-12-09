@@ -158,5 +158,30 @@ namespace SportsEventsApp.Controllers
             await _fighterService.SoftDeleteFighterAsync(model.Id);
             return RedirectToAction(nameof(Index));
         }
+
+        // Fighter Details (GET)
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var fighter = await _fighterService.GetFighterByIdAsync(id);
+            if (fighter == null || fighter.IsDeleted)
+                return NotFound();
+
+            var viewModel = new FighterViewModel
+            {
+                Id = fighter.Id,
+                FirstName = fighter.FirstName,
+                LastName = fighter.LastName,
+                NickName = fighter.NickName,
+                DateOfBirth = fighter.DateOfBirth,
+                Height = fighter.Height,
+                Reach = fighter.Reach,
+                Country = fighter.Country,
+                Category = fighter.Category?.Name ?? "Unknown",
+                ImageUrl = fighter.ImageUrl
+            };
+
+            return View("FighterDetails", viewModel); // Make sure the FighterDetails.cshtml view exists
+        }
+
     }
 }

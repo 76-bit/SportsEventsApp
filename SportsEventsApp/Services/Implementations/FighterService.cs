@@ -17,13 +17,14 @@ namespace SportsEventsApp.Services.Implementations
         {
             return await _context.Fighters
                 .Include(f => f.Category)
-                .FirstOrDefaultAsync(f => f.Id == fighterId);
+                .FirstOrDefaultAsync(f => f.Id == fighterId && !f.IsDeleted); // Exclude deleted fighters
         }
 
-        public async Task<List<Fighter>> GetAllFightersAsync()
+        public async Task<List<Fighter>> GetAllFightersAsync(bool includeDeleted = false)
         {
             return await _context.Fighters
-                .Include(f => f.Category)
+                .Where(f => includeDeleted || !f.IsDeleted) // Include deleted only if requested
+                .Include(f => f.Category) // Include category for display purposes
                 .ToListAsync();
         }
 
@@ -32,40 +33,39 @@ namespace SportsEventsApp.Services.Implementations
             _context.Fighters.Add(fighter);
             await _context.SaveChangesAsync();
         }
-        public async Task EditFighterAsync(Fighter fighter)
+
+        public async Task EditFighterAsync(Fighter updatedFighter)
         {
-            var existingFighter = await _context.Fighters.FindAsync(fighter.Id);
-            if (existingFighter == null)
+            var existingFighter = await _context.Fighters.FindAsync(updatedFighter.Id);
+            if (existingFighter == null || existingFighter.IsDeleted)
             {
-                throw new InvalidOperationException("Fighter not found.");
+                throw new InvalidOperationException("Cannot edit a non-existent or deleted fighter.");
             }
 
-            existingFighter.FirstName = fighter.FirstName;
-            existingFighter.LastName = fighter.LastName;
-            existingFighter.NickName = fighter.NickName;
-            existingFighter.DateOfBirth = fighter.DateOfBirth;
-            existingFighter.Height = fighter.Height;
-            existingFighter.Reach = fighter.Reach;
-            existingFighter.Country = fighter.Country;
-            existingFighter.CategoryId = fighter.CategoryId;
-            existingFighter.ImageUrl = fighter.ImageUrl;
+            existingFighter.FirstName = updatedFighter.FirstName;
+            existingFighter.LastName = updatedFighter.LastName;
+            existingFighter.NickName = updatedFighter.NickName;
+            existingFighter.DateOfBirth = updatedFighter.DateOfBirth;
+            existingFighter.Height = updatedFighter.Height;
+            existingFighter.Reach = updatedFighter.Reach;
+            existingFighter.Country = updatedFighter.Country;
+            existingFighter.CategoryId = updatedFighter.CategoryId;
+            existingFighter.ImageUrl = string.IsNullOrEmpty(updatedFighter.ImageUrl) ? "/images/default-fighter.jpg" : updatedFighter.ImageUrl;
 
             _context.Fighters.Update(existingFighter);
             await _context.SaveChangesAsync();
         }
 
         public async Task SoftDeleteFighterAsync(Guid fighterId)
-{
-    var fighter = await _context.Fighters.FindAsync(fighterId);
-    if (fighter == null)
-    {
-        throw new InvalidOperationException("Fighter not found.");
-    }
+        {
+            var fighter = await _context.Fighters.FindAsync(fighterId);
+            if (fighter == null)
+            {
+                throw new InvalidOperationException("Fighter not found.");
+            }
 
-    // Mark the fighter as deleted
-    fighter.IsDeleted = true;
-    await _context.SaveChangesAsync();
-}
-
+            fighter.IsDeleted = true; // Perform soft delete
+            await _context.SaveChangesAsync();
+        }
     }
 }

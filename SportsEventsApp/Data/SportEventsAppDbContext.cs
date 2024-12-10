@@ -16,17 +16,39 @@ namespace SportsEventsApp.Data
         {
             base.OnModelCreating(builder);
 
+            // FighteFight table setting
             builder.Entity<FighterFight>()
                .HasOne(ff => ff.Fighter)
-               .WithMany(f => f.FighterFights) // Navigation property
+               .WithMany(f => f.FighterFights) 
                .HasForeignKey(ff => ff.FighterId)
-               .OnDelete(DeleteBehavior.NoAction); // Prevent cascade delete
+               .OnDelete(DeleteBehavior.NoAction); 
 
             builder.Entity<FighterFight>()
                 .HasOne(ff => ff.Fight)
-                .WithMany(f => f.FighterFights) // Ensure Fight navigation is configured
+                .WithMany(f => f.FighterFights) 
                 .HasForeignKey(ff => ff.FightId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // UserFigh table setting
+            builder.Entity<UserFight>()
+                .HasKey(uf => new { uf.UserId, uf.FightId, uf.ListType });
+
+            builder.Entity<UserFight>()
+                .Property(uf => uf.ListType)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder.Entity<UserFight>()
+                .HasOne(uf => uf.User)
+                .WithMany()
+                .HasForeignKey(uf => uf.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<UserFight>()
+                .HasOne(uf => uf.Fight)
+                .WithMany(f => f.UsersFights)
+                .HasForeignKey(uf => uf.FightId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Predefined IDs for categories
             var strawweightId = Guid.NewGuid();

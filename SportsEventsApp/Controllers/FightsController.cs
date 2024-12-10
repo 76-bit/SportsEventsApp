@@ -285,5 +285,88 @@ namespace SportsEventsApp.Controllers
 
             return View(viewModel);
         }
+
+        //// Add fight to watchlist - removed logic
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> AddToWatchlist(Guid id)
+        //{
+        //    var userId = _userManager.GetUserId(User); // Fetch actual user ID
+        //    if (string.IsNullOrEmpty(userId)) return Unauthorized();
+
+        //    await _fightService.AddFightToWatchlistAsync(userId, id);
+        //    return RedirectToAction(nameof(Watchlist));
+        //}
+
+        // Add fight to favorites
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToFavorites(Guid id)
+        {
+            var userId = _userManager.GetUserId(User); // Fetch actual user ID
+            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+
+            await _fightService.AddFightToFavoritesAsync(userId, id);
+            return RedirectToAction(nameof(Favorites));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveFromFavorites(Guid id)
+        {
+            var userId = _userManager.GetUserId(User); // Fetch actual user ID
+            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+
+            await _fightService.RemoveFightFromFavoritesAsync(userId, id);
+            return RedirectToAction(nameof(Favorites));
+        }
+
+        // Watchlist page with pagination - removed logic
+        //public async Task<IActionResult> Watchlist(int page = 1, int pageSize = 4)
+        //{
+        //    var userId = _userManager.GetUserId(User);
+        //    if (string.IsNullOrEmpty(userId)) return Unauthorized();
+
+        //    var paginatedList = await _fightService.GetUserWatchlistAsync(userId, page, pageSize);
+        //    var viewModel = new PaginatedListViewModel<FightViewModel>
+        //    {
+        //        Items = paginatedList.Items.Select(f => new FightViewModel
+        //        {
+        //            Id = f.Id,
+        //            Title = f.Title,
+        //            Description = f.Description,
+        //            DateOfTheFight = f.DateOfTheFight,
+        //            ImageUrl = f.ImageUrl
+        //        }).ToList(),
+        //        CurrentPage = paginatedList.CurrentPage,
+        //        TotalPages = paginatedList.TotalPages
+        //    };
+
+        //    return View("Watchlist", viewModel);
+        //}
+
+        // Favorites page with pagination
+        public async Task<IActionResult> Favorites(int page = 1, int pageSize = 4)
+        {
+            var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+
+            var paginatedList = await _fightService.GetUserFavoritesAsync(userId, page, pageSize);
+            var viewModel = new PaginatedListViewModel<FightViewModel>
+            {
+                Items = paginatedList.Items.Select(f => new FightViewModel
+                {
+                    Id = f.Id,
+                    Title = f.Title,
+                    Description = f.Description,
+                    DateOfTheFight = f.DateOfTheFight,
+                    ImageUrl = f.ImageUrl
+                }).ToList(),
+                CurrentPage = paginatedList.CurrentPage,
+                TotalPages = paginatedList.TotalPages
+            };
+
+            return View("Favorites", viewModel);
+        }
     }
 }

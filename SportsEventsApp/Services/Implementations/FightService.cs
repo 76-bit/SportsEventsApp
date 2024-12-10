@@ -2,6 +2,7 @@
 using SportsEventsApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using static SportsEventsApp.Constants.ModelConstants;
+using SportsEventsApp.Models;
 
 namespace SportsEventsApp.Services.Implementations
 {
@@ -172,5 +173,136 @@ namespace SportsEventsApp.Services.Implementations
                 })
                 .ToListAsync();
         }
+
+        //public async Task AddFightToWatchlistAsync(string userId, Guid fightId)
+        //{
+        //    if (string.IsNullOrEmpty(userId)) throw new ArgumentNullException(nameof(userId));
+
+        //    // Check if user exists
+        //    var userExists = await _context.Users.AnyAsync(u => u.Id == userId);
+        //    if (!userExists)
+        //    {
+        //        throw new InvalidOperationException($"User with ID {userId} does not exist.");
+        //    }
+
+        //    // Check if fight exists
+        //    var fightExists = await _context.Fights.AnyAsync(f => f.Id == fightId && !f.IsDeleted);
+        //    if (!fightExists)
+        //    {
+        //        throw new InvalidOperationException($"Fight with ID {fightId} does not exist.");
+        //    }
+
+        //    // Check if the fight is already in the watchlist
+        //    var alreadyExists = await _context.UsersFights.AnyAsync(uf => uf.UserId == userId && uf.FightId == fightId && uf.ListType == "Watchlist");
+        //    if (alreadyExists)
+        //    {
+        //        throw new InvalidOperationException("This fight is already in the user's watchlist.");
+        //    }
+
+        //    // Add the fight to the watchlist
+        //    var userFight = new UserFight
+        //    {
+        //        UserId = userId,
+        //        FightId = fightId,
+        //        ListType = "Watchlist"
+        //    };
+
+        //    _context.UsersFights.Add(userFight);
+        //    await _context.SaveChangesAsync();
+        //}
+
+        public async Task AddFightToFavoritesAsync(string userId, Guid fightId)
+        {
+            if (string.IsNullOrEmpty(userId)) throw new ArgumentNullException(nameof(userId));
+
+            // Check if user exists
+            var userExists = await _context.Users.AnyAsync(u => u.Id == userId);
+            if (!userExists)
+            {
+                throw new InvalidOperationException($"User with ID {userId} does not exist.");
+            }
+
+            // Check if fight exists
+            var fightExists = await _context.Fights.AnyAsync(f => f.Id == fightId && !f.IsDeleted);
+            if (!fightExists)
+            {
+                throw new InvalidOperationException($"Fight with ID {fightId} does not exist.");
+            }
+
+            // Check if the fight is already in the favorites
+            var alreadyExists = await _context.UsersFights.AnyAsync(uf => uf.UserId == userId && uf.FightId == fightId && uf.ListType == "Favorites");
+            if (alreadyExists)
+            {
+                return; // Fight is already in favorites, do nothing
+            }
+
+            // Add the fight to the favorites
+            var userFight = new UserFight
+            {
+                UserId = userId,
+                FightId = fightId,
+                ListType = "Favorites"
+            };
+
+            _context.UsersFights.Add(userFight);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveFightFromFavoritesAsync(string userId, Guid fightId)
+        {
+            var userFight = await _context.UsersFights.FirstOrDefaultAsync(uf => uf.UserId == userId && uf.FightId == fightId && uf.ListType == "Favorites");
+            if (userFight == null)
+            {
+                throw new InvalidOperationException("This fight is not in the user's favorites.");
+            }
+
+            _context.UsersFights.Remove(userFight);
+            await _context.SaveChangesAsync();
+        }
+
+        //public async Task<PaginatedListViewModel<Fight>> GetUserWatchlistAsync(string userId, int page, int pageSize)
+        //{
+        //    var query = _context.UsersFights
+        //        .Where(uf => uf.UserId == userId)
+        //        .Select(uf => uf.Fight)
+        //        .Where(f => !f.IsDeleted) // Exclude soft-deleted fights
+        //        .OrderBy(f => f.DateOfTheFight); // Order by fight date
+
+        //    var totalCount = await query.CountAsync();
+        //    var fights = await query
+        //        .Skip((page - 1) * pageSize)
+        //        .Take(pageSize)
+        //        .ToListAsync();
+
+        //    return new PaginatedListViewModel<Fight>
+        //    {
+        //        Items = fights,
+        //        CurrentPage = page,
+        //        TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
+        //    };
+        //}
+
+        public async Task<PaginatedListViewModel<Fight>> GetUserFavoritesAsync(string userId, int page, int pageSize)
+        {
+            var query = _context.UsersFights
+                .Where(uf => uf.UserId == userId)
+                .Select(uf => uf.Fight)
+                .Where(f => !f.IsDeleted) // Exclude soft-deleted fights
+                .OrderBy(f => f.DateOfTheFight); // Order by fight date
+
+            var totalCount = await query.CountAsync();
+            var fights = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PaginatedListViewModel<Fight>
+            {
+                Items = fights,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
+            };
+        }
+
     }
 }

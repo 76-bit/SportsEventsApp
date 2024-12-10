@@ -414,7 +414,7 @@ namespace SportsEventsApp.Data.Migrations
                 column: "FighterId",
                 principalTable: "Fighters",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
     }
 }

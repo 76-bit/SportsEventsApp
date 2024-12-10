@@ -57,5 +57,16 @@ else
     </div>
 }
 
+<!-- User actions: Add to Favorites -->
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="user-actions mt-3">
+
+        <form asp-action="AddToFavorites" asp-route-id="@Model.Id" method="post" class="d-inline">
+            <button type="submit" class="btn btn-secondary">Add to Favorites</button>
+        </form>
+    </div>
+}
+
 <!-- Back to All Fights Button -->
 <a asp-action="Index" class="btn btn-secondary mt-3">Back to All Fights</a>

@@ -1,4 +1,5 @@
 ﻿using SportsEventsApp.Data;
+using SportsEventsApp.Models;
 
 namespace SportsEventsApp.Services.Interfaces
 {
@@ -11,9 +12,16 @@ namespace SportsEventsApp.Services.Interfaces
 
         Task AddFightAsync(Fight fight, List<Guid> fighterIds);
         Task EditFightAsync(Fight fight, List<Guid> fighterIds);
-
         Task SoftDeleteFightAsync(Guid fightId);
+
         Task<List<Fight>> GetUpcomingFightsAsync();
         Task<List<Fight>> GetArchivedFightsAsync();
+
+        //Task AddFightToWatchlistAsync(string userId, Guid fightId);
+        Task AddFightToFavoritesAsync(string userId, Guid fightId);
+        Task RemoveFightFromFavoritesAsync(string userId, Guid fightId);
+
+        ///Task<PaginatedListViewModel<Fight>> GetUserWatchlistAsync(string userId, int page, int pageSize);
+        Task<PaginatedListViewModel<Fight>> GetUserFavoritesAsync(string userId, int page, int pageSize);
     }
 }

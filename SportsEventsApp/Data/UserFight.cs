@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SportsEventsApp.Data
 {
-    //a class that connects the user with their fights (those in their watchlist)
-    [PrimaryKey(nameof(UserId), nameof(FightId))]
+    //a class that connects the user with their fights (those in their watchlist and favorites page)
+    [PrimaryKey(nameof(UserId), nameof(FightId), nameof(ListType))]
     public class UserFight
     {
         [Required]
@@ -20,5 +20,9 @@ namespace SportsEventsApp.Data
 
         [ForeignKey(nameof(FightId))]
         public Fight Fight { get; set; } = null!;
+
+        [Required]
+        [Comment("Indicates whether the fight is in the user's Watchlist or Favorites")]
+        public string ListType { get; set; } = null!; // E.g., "Watchlist" or "Favorites"
     }
 }

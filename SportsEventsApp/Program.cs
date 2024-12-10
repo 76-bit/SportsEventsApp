@@ -41,6 +41,8 @@ builder.Services.AddScoped<IFightService, FightService>();
 builder.Services.AddScoped<IFighterService, FighterService>();
 //Category serrvice
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+//search service
+builder.Services.AddScoped<ISearchService, SearchService>();
 
 
 var app = builder.Build();

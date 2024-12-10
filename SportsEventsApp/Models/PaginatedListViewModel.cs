@@ -10,5 +10,7 @@
         public bool HasPreviousPage => CurrentPage > 1;
         public bool HasNextPage => CurrentPage < TotalPages;
         public int CurrentItemCount => Items?.Count ?? 0;
+
+        public string? SearchQuery { get; set; }
     }
 }

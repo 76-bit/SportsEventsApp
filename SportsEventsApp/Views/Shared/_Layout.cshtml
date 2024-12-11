@@ -23,10 +23,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Cat</a>
                         </li>
 
-                        <!-- Conditional Buttons -->
+                        <!-- Conditional Buttons - only visible when not on the home page -->
                         @if (!Context.Request.Path.Value?.Equals("/") ?? true)
                         {
                             <li class="nav-item">

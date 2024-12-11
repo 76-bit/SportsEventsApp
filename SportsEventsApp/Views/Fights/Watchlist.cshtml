@@ -11,10 +11,10 @@
             <p>@fight.Description</p>
             <p>Date: @fight.DateOfTheFight.ToShortDateString()</p>
             <div class="card-actions">
-                <!-- See Details Button -->
+                <!-- See details button -->
                 <a asp-action="Details" asp-route-id="@fight.Id" class="btn btn-primary">See Details</a>
 
-                <!-- Remove from Watchlist Button -->
+                <!-- remove from watchlist button -->
                 <form asp-action="RemoveFromWatchlist" asp-route-id="@fight.Id" method="post" class="d-inline">
                     <button type="submit" class="btn btn-danger">Remove from Watchlist</button>
                 </form>

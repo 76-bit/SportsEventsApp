@@ -13,6 +13,7 @@ namespace SportsEventsApp.Services.Implementations
             _context = context;
         }
 
+        //Search for maching title, description or one of the two fighters's names
         public async Task<List<Fight>> SearchFightsAsync(string query)
         {
             query = query.ToLower();
@@ -23,7 +24,7 @@ namespace SportsEventsApp.Services.Implementations
                              f.Description.ToLower().Contains(query) ||
                              f.FighterFights.Any(ff => ff.Fighter.FirstName.ToLower().Contains(query) ||
                                                        ff.Fighter.LastName.ToLower().Contains(query))))
-                .Include(f => f.FighterFights) // Include related fighters
+                .Include(f => f.FighterFights)
                 .ThenInclude(ff => ff.Fighter)
                 .ToListAsync();
         }

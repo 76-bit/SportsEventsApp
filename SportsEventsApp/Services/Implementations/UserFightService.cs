@@ -2,6 +2,7 @@
 using SportsEventsApp.Data;
 using SportsEventsApp.Services.Interfaces;
 
+//This is the service holding the logic for the favorites page's functionality
 public class UserFightService : IUserFightService
 {
     private readonly SportEventsAppDbContext _context;
@@ -11,10 +12,11 @@ public class UserFightService : IUserFightService
         _context = context;
     }
 
+    // Add to favorites
     public async Task AddToListAsync(string userId, Guid fightId, string listType)
     {
         if (await _context.UsersFights.AnyAsync(uf => uf.UserId == userId && uf.FightId == fightId && uf.ListType == listType))
-            return; // Avoid duplicates
+            return;
 
         var userFight = new UserFight
         {
@@ -27,6 +29,7 @@ public class UserFightService : IUserFightService
         await _context.SaveChangesAsync();
     }
 
+    //Remove from favorites 
     public async Task RemoveFromListAsync(string userId, Guid fightId, string listType)
     {
         var userFight = await _context.UsersFights
@@ -39,6 +42,7 @@ public class UserFightService : IUserFightService
         }
     }
 
+    // Get favorites (for displaying)
     public async Task<List<Fight>> GetListAsync(string userId, string listType)
     {
         return await _context.UsersFights

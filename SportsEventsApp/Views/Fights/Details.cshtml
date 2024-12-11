@@ -31,11 +31,11 @@ else
     <img src="/images/default-youtube.jpg" alt="Video unavailable" class="img-fluid mb-3" />
 }
 
-<!-- Fight details -->
+<!-- fight details -->
 <p>@Model.Description</p>
 <p>Date: @Model.DateOfTheFight.ToShortDateString()</p>
 
-<!-- Fighter Buttons -->
+<!-- fighter buttons -->
 <div class="fighter-buttons mt-3">
     @if (Model.Fighters?.Count >= 2)
     {
@@ -48,7 +48,7 @@ else
     }
 </div>
 
-<!-- Admin actions: Edit and Delete -->
+<!-- admin actions edit and delete -->
 @if (User.IsInRole("Admin"))
 {
     <div class="admin-buttons mt-3">
@@ -57,7 +57,7 @@ else
     </div>
 }
 
-<!-- User actions: Add to Favorites -->
+<!-- user actons  add to favorites -->
 @if (User.Identity.IsAuthenticated)
 {
     <div class="user-actions mt-3">
@@ -68,5 +68,5 @@ else
     </div>
 }
 
-<!-- Back to All Fights Button -->
+<!-- back to all fights button -->
 <a asp-action="Index" class="btn btn-secondary mt-3">Back to All Fights</a>

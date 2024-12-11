@@ -15,7 +15,9 @@ public class UserFightsController : Controller
         _userManager = userManager;
     }
 
+    //GET Watchlist (removed logic)
     [Authorize]
+    [HttpGet]
     public async Task<IActionResult> Watchlist(int page = 1, int pageSize = 4)
     {
         var userId = _userManager.GetUserId(User);
@@ -40,6 +42,8 @@ public class UserFightsController : Controller
         return View(viewModel);
     }
 
+    // GET favorites of current user
+    [HttpGet]
     [Authorize]
     public async Task<IActionResult> Favorites(int page = 1, int pageSize = 4)
     {
@@ -67,6 +71,8 @@ public class UserFightsController : Controller
 
     [HttpPost]
     [Authorize]
+    //Note - removed logic, there used to be a watchlist page, but i decited that the favorites and watchlist page are almost similar so there is no point of having both
+    //Leaving it here in case I change my mind
     public async Task<IActionResult> AddToWatchlist(Guid fightId)
     {
         var userId = _userManager.GetUserId(User);

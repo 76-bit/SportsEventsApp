@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SportsEventsApp.Data
 {
-    //a class that connects the user with their fights (those in their watchlist and favorites page)
+    //a class that connects the user with their fights (those in their favorites page)
     [PrimaryKey(nameof(UserId), nameof(FightId), nameof(ListType))]
     public class UserFight
     {
@@ -23,6 +23,6 @@ namespace SportsEventsApp.Data
 
         [Required]
         [Comment("Indicates whether the fight is in the user's Watchlist or Favorites")]
-        public string ListType { get; set; } = null!; // E.g., "Watchlist" or "Favorites"
+        public string ListType { get; set; } = null!; // This used to hold either "Wathclist" or "Favorites" but i removed the watchlist funtionality because it was obsolete
     }
 }

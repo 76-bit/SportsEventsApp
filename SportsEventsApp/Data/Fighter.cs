@@ -48,6 +48,7 @@ public class Fighter
     public int Reach { get; set; }
 
     [Comment("URL for the fighter's image")]
+    //Note: the url should not be sitting here. This is temporary
     public string? ImageUrl { get; set; } = "https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg";
 
     [Required]

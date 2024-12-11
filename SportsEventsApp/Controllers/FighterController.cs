@@ -9,7 +9,7 @@ namespace SportsEventsApp.Controllers
     public class FightersController : Controller
     {
         private readonly IFighterService _fighterService;
-        private readonly ICategoryService _categoryService; // Inject CategoryService to fetch categories
+        private readonly ICategoryService _categoryService;
 
         public FightersController(IFighterService fighterService, ICategoryService categoryService)
         {
@@ -32,13 +32,14 @@ namespace SportsEventsApp.Controllers
                 Reach = f.Reach,
                 Country = f.Country,
                 Category = f.Category?.Name ?? "Unknown",
-                ImageUrl = f.ImageUrl
+                ImageUrl = f.ImageUrl //ignore the warning - i literaly have a default image
             }).ToList();
 
             return View(viewModel);
         }
 
         // Add a new fighter (GET)
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add()
         {
@@ -76,6 +77,7 @@ namespace SportsEventsApp.Controllers
         }
 
         // Edit an existing fighter (GET)
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -93,7 +95,7 @@ namespace SportsEventsApp.Controllers
                 Reach = fighter.Reach,
                 Country = fighter.Country,
                 CategoryId = fighter.CategoryId,
-                ImageUrl = fighter.ImageUrl
+                ImageUrl = fighter.ImageUrl //ignore the warning - i literaly have a default image
             };
 
             ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "Id", "Name", viewModel.CategoryId);
@@ -131,6 +133,7 @@ namespace SportsEventsApp.Controllers
         }
 
         // Confirm Delete (GET)
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -160,6 +163,7 @@ namespace SportsEventsApp.Controllers
         }
 
         // Fighter Details (GET)
+        [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
             var fighter = await _fighterService.GetFighterByIdAsync(id);
@@ -180,7 +184,7 @@ namespace SportsEventsApp.Controllers
                 ImageUrl = fighter.ImageUrl
             };
 
-            return View("FighterDetails", viewModel); // Make sure the FighterDetails.cshtml view exists
+            return View("FighterDetails", viewModel);
         }
 
     }

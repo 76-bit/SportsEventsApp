@@ -6,7 +6,7 @@
 
 <h1>All Fighters</h1>
 
-<!-- Add Fighter Button (Visible for Admins Only) -->
+<!-- Add fighter button (visible for admins only) -->
 @if (User.IsInRole("Admin"))
 {
     <div class="mb-3">
@@ -28,7 +28,7 @@
                     <p class="card-text"><strong>Country:</strong> @fighter.Country</p>
                     <p class="card-text"><strong>Category:</strong> @fighter.Category</p>
 
-                    <!-- Admin Buttons -->
+                    <!-- admin buttons -->
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-action="Edit" asp-route-id="@fighter.Id" class="btn btn-primary">Edit</a>

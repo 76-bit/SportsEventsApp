@@ -8,14 +8,17 @@ namespace SportsEventsApp.Models
         public Guid Id { get; set; }
 
         [Required]
+        //Note: yes the message is stupidly hardcoded to say "between 2 and 50" but this is so that the client-side validation has a message to display
         [StringLength(maxFighterViewModelNameLength, MinimumLength = minFighterViewModelNameLength, ErrorMessage = "First name must be between 2 and 50 characters.")]
         public string FirstName { get; set; } = null!;
 
         [Required]
+        //Note: yes the message is stupidly hardcoded to say "between 2 and 50" but this is so that the client-side validation has a message to display
         [StringLength(maxFighterViewModelNameLength, MinimumLength = minFighterViewModelNameLength, ErrorMessage = "Last name must be between 2 and 50 characters.")]
         public string LastName { get; set; } = null!;
 
         [Required]
+        //Note: yes the message is stupidly hardcoded to say "between 2 and 50" but this is so that the client-side validation has a message to display
         [StringLength(maxFighterViewModelNameLength, MinimumLength = minFighterViewModelNameLength, ErrorMessage = $"Nickname must be between 2 and 50 characters.")]
         public string NickName { get; set; } = null!;
 
@@ -36,11 +39,11 @@ namespace SportsEventsApp.Models
         public string Country { get; set; } = null!;
 
         [Required(ErrorMessage = "Please select a category.")]
-        public Guid CategoryId { get; set; } // Category selection for forms
+        public Guid CategoryId { get; set; } 
 
-        public string? Category { get; set; } // Display name of category
+        public string? Category { get; set; } 
 
         [Display(Name = "Image URL")]
-        public string ImageUrl { get; set; } = "/images/default-fighter.jpg"; // Default image
+        public string ImageUrl { get; set; } = "/images/default-fighter.jpg"; 
     }
 }

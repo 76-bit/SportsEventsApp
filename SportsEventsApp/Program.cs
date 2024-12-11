@@ -6,7 +6,6 @@ using SportsEventsApp.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<SportEventsAppDbContext>(options =>
@@ -15,23 +14,20 @@ builder.Services.AddDbContext<SportEventsAppDbContext>(options =>
 // Configure Identity with Role support
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false; // Disable email confirmation
-    options.User.RequireUniqueEmail = true; // Enforce unique email
-    options.Password.RequireDigit = false; // Adjust password complexity
+    //Yes the password has been purposfully made like this for ease-of-use in development
+    options.SignIn.RequireConfirmedAccount = false; 
+    options.User.RequireUniqueEmail = true; 
+    options.Password.RequireDigit = false; 
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
-    options.Password.RequiredLength = 6; // Minimum password length
+    options.Password.RequiredLength = 6;
 })
 .AddEntityFrameworkStores<SportEventsAppDbContext>()
 .AddDefaultTokenProviders();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-// Add MVC Controllers and Views
 builder.Services.AddControllersWithViews();
-
-// Adding Razor Pages
 builder.Services.AddRazorPages();
 
 // Add custom services:
@@ -53,13 +49,11 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    // Catch 404 errors first
+    // Catch 404 
     app.UseStatusCodePagesWithReExecute("/Error/Error404");
 
     // Then handle other errors (500 errors)
     app.UseExceptionHandler("/Error/Error500");
-
-    // Apply HSTS (HTTP Strict Transport Security)
     app.UseHsts();
 }
 
@@ -90,10 +84,8 @@ static async Task SeedRolesAndAdminUser(IServiceProvider services)
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
 
-    // Define roles
     var roles = new[] { "User", "Admin" };
 
-    // Ensure roles exist
     foreach (var role in roles)
     {
         if (!await roleManager.RoleExistsAsync(role))

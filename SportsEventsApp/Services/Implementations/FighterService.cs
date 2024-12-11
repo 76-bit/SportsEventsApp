@@ -13,27 +13,31 @@ namespace SportsEventsApp.Services.Implementations
             _context = context;
         }
 
+        //Get a single fighter by his id
         public async Task<Fighter?> GetFighterByIdAsync(Guid fighterId)
         {
             return await _context.Fighters
                 .Include(f => f.Category)
-                .FirstOrDefaultAsync(f => f.Id == fighterId && !f.IsDeleted); // Exclude deleted fighters
+                .FirstOrDefaultAsync(f => f.Id == fighterId && !f.IsDeleted);
         }
 
+        //Get all fighters
         public async Task<List<Fighter>> GetAllFightersAsync(bool includeDeleted = false)
         {
             return await _context.Fighters
-                .Where(f => includeDeleted || !f.IsDeleted) // Include deleted only if requested
-                .Include(f => f.Category) // Include category for display purposes
+                .Where(f => includeDeleted || !f.IsDeleted)
+                .Include(f => f.Category)
                 .ToListAsync();
         }
 
+        //Adding a fighter logic
         public async Task AddFighterAsync(Fighter fighter)
         {
             _context.Fighters.Add(fighter);
             await _context.SaveChangesAsync();
         }
 
+        //Editing a fighter logic
         public async Task EditFighterAsync(Fighter updatedFighter)
         {
             var existingFighter = await _context.Fighters.FindAsync(updatedFighter.Id);
@@ -56,6 +60,7 @@ namespace SportsEventsApp.Services.Implementations
             await _context.SaveChangesAsync();
         }
 
+        //Mark a fighter as deleted (soft-delete him)
         public async Task SoftDeleteFighterAsync(Guid fighterId)
         {
             var fighter = await _context.Fighters.FindAsync(fighterId);
@@ -64,7 +69,7 @@ namespace SportsEventsApp.Services.Implementations
                 throw new InvalidOperationException("Fighter not found.");
             }
 
-            fighter.IsDeleted = true; // Perform soft delete
+            fighter.IsDeleted = true;
             await _context.SaveChangesAsync();
         }
     }

@@ -20,7 +20,6 @@ namespace SportsEventsApp.Models
 
         public string? ImageUrl { get; set; }
 
-        // New YouTube URL property
         public string? YouTubeUrl { get; set; }
 
         public List<FighterViewModel>? Fighters { get; set; }

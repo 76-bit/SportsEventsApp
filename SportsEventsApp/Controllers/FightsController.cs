@@ -61,7 +61,7 @@ namespace SportsEventsApp.Controllers
 				ImageUrl = fight.ImageUrl,
                 YouTubeUrl = fight.YouTubeUrl,
 				Fighters = fight.FighterFights
-					.Where(ff => ff.Fighter != null) // Ensure Fighter is not null
+					.Where(ff => ff.Fighter != null)
 					.Select(ff => new FighterViewModel
 					{
 						Id = ff.Fighter.Id,
@@ -72,7 +72,7 @@ namespace SportsEventsApp.Controllers
 						Height = ff.Fighter.Height,
 						Reach = ff.Fighter.Reach,
 						Category = ff.Fighter.Category?.Name ?? "Unknown", // Handle null Category
-						ImageUrl = ff.Fighter.ImageUrl
+						ImageUrl = ff.Fighter.ImageUrl // ignore warning, default image is set
 					})
 					.ToList()
 			};
@@ -86,7 +86,6 @@ namespace SportsEventsApp.Controllers
         {
             var fighters = await _fightService.GetAllFightersAsync();
 
-            // Populate ViewBag with available fighters
             ViewBag.Fighters = fighters.Select(f => new SelectListItem
             {
                 Value = f.Id.ToString(),
@@ -96,6 +95,7 @@ namespace SportsEventsApp.Controllers
             return View(new FightViewModel());
         }
 
+        //Add a new fight (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(FightViewModel model, [FromForm] List<Guid> SelectedFighters)
@@ -123,7 +123,6 @@ namespace SportsEventsApp.Controllers
                 PublisherId = _userManager.GetUserId(User)
             };
 
-            // Pass the fight and fighter IDs to the service
             await _fightService.AddFightAsync(fight, SelectedFighters);
 
             return RedirectToAction(nameof(Index));
@@ -131,6 +130,7 @@ namespace SportsEventsApp.Controllers
 
 
         // Edit an existing fight (GET)
+        [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
             var fight = await _fightService.GetFightByIdAsync(id);
@@ -192,10 +192,9 @@ namespace SportsEventsApp.Controllers
                 Description = model.Description,
                 DateOfTheFight = model.DateOfTheFight,
                 ImageUrl = string.IsNullOrEmpty(model.ImageUrl) ? ModelConstants.DefaultImageUrl : model.ImageUrl,
-                YouTubeUrl = model.YouTubeUrl
+                YouTubeUrl = model.YouTubeUrl // ignore warning, i have a default image
             };
 
-            // Update fight with selected fighters
             await _fightService.EditFightAsync(fight, SelectedFighters);
 
             return RedirectToAction(nameof(Index));
@@ -209,7 +208,7 @@ namespace SportsEventsApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Confirm Delete
+        //Confirm Delete (GET)
         public async Task<IActionResult> ConfirmDelete(Guid id)
         {
             var fight = await _fightService.GetFightByIdAsync(id);
@@ -227,7 +226,7 @@ namespace SportsEventsApp.Controllers
             return View(viewModel);
         }
 
-        // POST: Delete
+        // Confirm Delete (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmDelete(FightViewModel model)
@@ -236,6 +235,7 @@ namespace SportsEventsApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Display old (archived) fights
         public async Task<IActionResult> Archived(int page = 1, int pageSize = 4)
         {
             var fights = await _fightService.GetArchivedFightsAsync();
@@ -261,6 +261,7 @@ namespace SportsEventsApp.Controllers
             return View(viewModel);
         }
 
+        // Display upcoming fights
         public async Task<IActionResult> Upcoming(int page = 1, int pageSize = 4)
         {
             var fights = await _fightService.GetUpcomingFightsAsync();
@@ -286,24 +287,12 @@ namespace SportsEventsApp.Controllers
             return View(viewModel);
         }
 
-        //// Add fight to watchlist - removed logic
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> AddToWatchlist(Guid id)
-        //{
-        //    var userId = _userManager.GetUserId(User); // Fetch actual user ID
-        //    if (string.IsNullOrEmpty(userId)) return Unauthorized();
-
-        //    await _fightService.AddFightToWatchlistAsync(userId, id);
-        //    return RedirectToAction(nameof(Watchlist));
-        //}
-
         // Add fight to favorites
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddToFavorites(Guid id)
         {
-            var userId = _userManager.GetUserId(User); // Fetch actual user ID
+            var userId = _userManager.GetUserId(User);
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
 
             await _fightService.AddFightToFavoritesAsync(userId, id);
@@ -314,36 +303,12 @@ namespace SportsEventsApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveFromFavorites(Guid id)
         {
-            var userId = _userManager.GetUserId(User); // Fetch actual user ID
+            var userId = _userManager.GetUserId(User);
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
 
             await _fightService.RemoveFightFromFavoritesAsync(userId, id);
             return RedirectToAction(nameof(Favorites));
         }
-
-        // Watchlist page with pagination - removed logic
-        //public async Task<IActionResult> Watchlist(int page = 1, int pageSize = 4)
-        //{
-        //    var userId = _userManager.GetUserId(User);
-        //    if (string.IsNullOrEmpty(userId)) return Unauthorized();
-
-        //    var paginatedList = await _fightService.GetUserWatchlistAsync(userId, page, pageSize);
-        //    var viewModel = new PaginatedListViewModel<FightViewModel>
-        //    {
-        //        Items = paginatedList.Items.Select(f => new FightViewModel
-        //        {
-        //            Id = f.Id,
-        //            Title = f.Title,
-        //            Description = f.Description,
-        //            DateOfTheFight = f.DateOfTheFight,
-        //            ImageUrl = f.ImageUrl
-        //        }).ToList(),
-        //        CurrentPage = paginatedList.CurrentPage,
-        //        TotalPages = paginatedList.TotalPages
-        //    };
-
-        //    return View("Watchlist", viewModel);
-        //}
 
         // Favorites page with pagination
         public async Task<IActionResult> Favorites(int page = 1, int pageSize = 4)

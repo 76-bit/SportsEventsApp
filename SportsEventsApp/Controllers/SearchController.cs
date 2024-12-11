@@ -13,9 +13,10 @@ namespace SportsEventsApp.Controllers
             _searchService = searchService;
         }
 
-        // GET: Search Results
+        // Search Results (GET)
         public async Task<IActionResult> Index(string query, int page = 1, int pageSize = 4)
         {
+            //check if something has been written at all
             if (string.IsNullOrEmpty(query))
             {
                 return RedirectToAction("Index", "Fights");

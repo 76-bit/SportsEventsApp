@@ -74,6 +74,7 @@ namespace SportsEventsApp.Data
                 new Category { Id = heavyweightId, Name = "Heavyweight", MinWeight = 205, MaxWeight = 265 }
             );
 
+
             // Seed admin user
             var adminId = Guid.NewGuid().ToString();
             var hasher = new PasswordHasher<IdentityUser>();
@@ -90,6 +91,7 @@ namespace SportsEventsApp.Data
             };
 
             builder.Entity<IdentityUser>().HasData(adminUser);
+
 
             // Predefined IDs for fights
             var conorVsKhabibId = Guid.NewGuid();
@@ -258,7 +260,7 @@ namespace SportsEventsApp.Data
             );
         }
 
-
+        //Db sets
         public DbSet<Category> Categories { get; set; }
         public DbSet<Fight> Fights { get; set; }
         public DbSet<Fighter> Fighters { get; set; }

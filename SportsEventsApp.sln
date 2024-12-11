@@ -5,6 +5,10 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsEventsApp", "SportsEventsApp\SportsEventsApp.csproj", "{55C0C082-B014-4622-BC91-1D9E080FEFC7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{23E98FFF-2C0A-4DFA-805D-93A1F16BD503}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsEventsApp.Services.Tests", "SportsEventsApp.Services.Tests\SportsEventsApp.Services.Tests.csproj", "{FBA09C85-B126-4002-A87C-0EA277483DE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{55C0C082-B014-4622-BC91-1D9E080FEFC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55C0C082-B014-4622-BC91-1D9E080FEFC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55C0C082-B014-4622-BC91-1D9E080FEFC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBA09C85-B126-4002-A87C-0EA277483DE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA09C85-B126-4002-A87C-0EA277483DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA09C85-B126-4002-A87C-0EA277483DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA09C85-B126-4002-A87C-0EA277483DE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FBA09C85-B126-4002-A87C-0EA277483DE3} = {23E98FFF-2C0A-4DFA-805D-93A1F16BD503}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C33DA61-6B25-4829-82B7-193D4BE811D5}
